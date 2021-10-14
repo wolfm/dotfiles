@@ -3,11 +3,13 @@
 # Allow windows X server to view windows
 export DISPLAY=localhost:0.0
 
-
+# beep via powershell
 _beep() {
     powershell.exe "[console]::beep($1,$2)"
 }
 alias beep="_beep 1800 300"
+
+
 ### WSL DEFAULTS ###
 
 # Use color prompt
