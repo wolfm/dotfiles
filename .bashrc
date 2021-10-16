@@ -40,6 +40,9 @@ fi
 # Make vim default editor
 export EDITOR=vim
 
+# Strat ssh agent
+eval $(ssh-agent &> /dev/null)
+
 # Don't put duplicate lines or lines starting with space in the history.
 HISTCONTROL=ignoreboth
 # Append to the history file, don't overwrite it
