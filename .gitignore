@@ -1,7 +1,10 @@
 # Ignore all files/folders in same directory as .gitignore
 /*
 
-# Track specific files
+# Track gitignore
 !.gitignore
+
+# Track specific files
 !.bashrc
 !.bash_platforms/
+!.gitconfig
