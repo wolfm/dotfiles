@@ -7,4 +7,13 @@
 # Track specific files
 !.bashrc
 !.bash_platforms/
+!.install
 !.gitconfig
+!.vimrc
+!.vim
+
+# Ignore installed vim plugins
+.vim/plugged/**
+
+# Ignore vim's .netrwhist
+.vim/.netrwhist
