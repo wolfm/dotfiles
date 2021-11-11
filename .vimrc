@@ -25,4 +25,6 @@ Plug 'wolfm/CoVim' , { 'on' : 'CoVim' }
 call plug#end()
 
 " default color scheme
-colorscheme nord
+if isdirectory(".vim/plugged/nord-vim")
+	colorscheme nord
+endif

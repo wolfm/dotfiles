@@ -13,7 +13,8 @@
 !.vim
 
 # Ignore installed vim plugins
-.vim/plugged/**
+.vim/plugged/
+.vim/autoload/
 
 # Ignore vim's .netrwhist
 .vim/.netrwhist
