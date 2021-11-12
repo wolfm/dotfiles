@@ -11,7 +11,7 @@ set autoindent
 map <F3> :NERDTreeToggle<CR>
 
 " Run with plugins if vim-plug installed
-if filereadable(".vim/autoload/plug.vim")
+if glob('~/.vim/autoload/plug.vim')!=#""
 
 	" vim-plug
 	call plug#begin('~/.vim/plugged')
@@ -28,7 +28,7 @@ if filereadable(".vim/autoload/plug.vim")
 	call plug#end()
 	
 	" default color scheme
-	if isdirectory(".vim/plugged/nord-vim")
+	if glob('~/.vim/plugged/nord-vim/')!=#""
 		colorscheme nord
 	endif
 else
