@@ -21,6 +21,7 @@ if glob('~/.vim/autoload/plug.vim')!=#""
 	Plug 'tpope/vim-fugitive'
 	Plug 'vim-syntastic/syntastic'
 	Plug 'arcticicestudio/nord-vim'
+	Plug 'airblade/vim-gitgutter'
 
 	" TODO Manually install covim?
 	Plug 'wolfm/CoVim' , { 'on' : 'CoVim' }
