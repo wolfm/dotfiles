@@ -10,21 +10,28 @@ set autoindent
 " Key Mappings
 map <F3> :NERDTreeToggle<CR>
 
-" vim-plug
-call plug#begin('~/.vim/plugged')
+" Run with plugins if vim-plug installed
+if filereadable(".vim/autoload/plug.vim")
 
-Plug 'preservim/nerdtree'
-Plug 'cespare/vim-toml'
-Plug 'tpope/vim-fugitive'
-Plug 'vim-syntastic/syntastic'
-Plug 'arcticicestudio/nord-vim'
+	" vim-plug
+	call plug#begin('~/.vim/plugged')
 
-" TODO Manually install covim?
-Plug 'wolfm/CoVim' , { 'on' : 'CoVim' }
+	Plug 'preservim/nerdtree'
+	Plug 'cespare/vim-toml'
+	Plug 'tpope/vim-fugitive'
+	Plug 'vim-syntastic/syntastic'
+	Plug 'arcticicestudio/nord-vim'
 
-call plug#end()
+	" TODO Manually install covim?
+	Plug 'wolfm/CoVim' , { 'on' : 'CoVim' }
 
-" default color scheme
-if isdirectory(".vim/plugged/nord-vim")
-	colorscheme nord
+	call plug#end()
+	
+	" default color scheme
+	if isdirectory(".vim/plugged/nord-vim")
+		colorscheme nord
+	endif
+else
+	echo "It appears vim-plug is not installed - run ~/.install to install it!"
 endif
+
