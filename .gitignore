@@ -11,6 +11,7 @@
 !.gitconfig
 !.vimrc
 !.vim
+!.tmux.conf
 
 # Ignore installed vim plugins
 .vim/plugged/
