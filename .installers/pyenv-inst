@@ -1,0 +1,19 @@
+#!/usr/bin/env bash
+# pyenv install script
+
+if [[ -d ~/.pyenv ]]; then
+	echo "pyenv already installed."
+	return 1
+fi
+
+echo "Installing pyenv..."
+
+git clone https://github.com/pyenv/pyenv.git ~/.pyenv
+
+# Try to compile a dynamic Bash extension to speed up pyenv
+# If it fails, pyenv will still work normally
+cd ~/.pyenv && src/configure && make -C src
+cd -
+
+echo "pyenv installed."
+

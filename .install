@@ -1,14 +1,7 @@
 #!/usr/bin/env bash
 # dotfiles install script
 
-if [ -f ~/.vim/autoload/plug.vim ]; then
-	echo "Upgrading vim-plug if possible..."
- 	vim +PlugUpgrade +qall
-else
-	echo "Downloading vim-plug..."
- 	curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
- 	    https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim || exit 1
-fi
+for installer in ~/.installers/*-inst; do
+	source $installer
+done
 
-echo "Installing/updating vim-plug plugins..."
-vim +PlugUpdate +qall

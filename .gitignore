@@ -8,6 +8,7 @@
 !.bashrc
 !.bash_platforms/
 !.install
+!.installers/
 !.gitconfig
 !.vimrc
 !.vim
