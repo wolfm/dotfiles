@@ -1,5 +1,13 @@
 #!/usr/bin/env bash
 
+# Powerline configuration
+if [ -f /usr/share/powerline/bindings/bash/powerline.sh ]; then
+  powerline-daemon -q
+  POWERLINE_BASH_CONTINUATION=1
+  POWERLINE_BASH_SELECT=1
+  source /usr/share/powerline/bindings/bash/powerline.sh
+fi
+
 # Allow windows X server to view windows
 export DISPLAY=localhost:0.0
 

@@ -1,4 +1,4 @@
-# Michael Wolf's .bashrc script
+# Michael's .bashrc script
 
 # If not running interactively, don't do anything
 case $- in
@@ -77,6 +77,15 @@ else
 fi
 unset color_prompt force_color_prompt
 
+# Powerline config
+if [ -f /usr/share/powerline/bindings/bash/powerline.sh ]; then
+	powerline-daemon -q
+	POWERLINE_BASH_CONTINUATION=1
+	POWERLINE_BASH_SELECT=1
+	source /usr/share/powerline/bindings/bash/powerline.sh
+fi
+
+
 # Enable color support of ls and also add handy aliases
 if [ -x /usr/bin/dircolors ]; then
     test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
@@ -95,9 +104,9 @@ export GCC_COLORS='error=01;31:warning=01;35:note=01;36:caret=01;32:locus=01:quo
 # Platform-specific .bashrc commands
 # WSL
 if [[ -n "$WSL_DISTRO_NAME" || -n "$IS_WSL" ]]; then
-    source "$HOME/.bash_platforms/.wsl"
+    source "$HOME/.bash_platforms/wsl"
 # iSH (on iOS)
 elif [[ "$(uname -r)" == *-ish ]]; then
-	source "$HOME/.bash_platforms/.ish"
+	source "$HOME/.bash_platforms/ish"
 fi
 
