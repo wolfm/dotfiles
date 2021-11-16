@@ -10,6 +10,9 @@ set autoindent
 " Key Mappings
 map <F3> :NERDTreeToggle<CR>
 
+" Activate built-in :Man command
+runtime ftplugin/man.vim
+
 " Run with plugins if vim-plug installed
 if glob('~/.vim/autoload/plug.vim')!=#""
 
