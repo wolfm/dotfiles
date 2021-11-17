@@ -39,8 +39,13 @@ else
 	echo "It appears vim-plug is not installed - run ~/.install to install it!"
 endif
 
-python3 from powerline.vim import setup as powerline_setup
-python3 powerline_setup()
-python3 del powerline_setup
+python3 << EOF
+try:
+	from powerline.vim import setup as powerline_setup
+	powerline_setup()
+	del powerline_setup
+except ModuleNotFoundError: # Works in python3 version >= 3.6
+	pass
+EOF
 
 set laststatus=2
