@@ -6,7 +6,7 @@
 
 # Track specific files
 !.bashrc
-!.bash_platforms/
+!.platforms/
 !.install
 !.installers/
 !.gitconfig

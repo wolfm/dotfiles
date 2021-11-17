@@ -104,9 +104,9 @@ export GCC_COLORS='error=01;31:warning=01;35:note=01;36:caret=01;32:locus=01:quo
 # Platform-specific .bashrc commands
 # WSL
 if [[ -n "$WSL_DISTRO_NAME" || -n "$IS_WSL" ]]; then
-    source "$HOME/.bash_platforms/wsl"
+    source "$HOME/.platforms/wsl"
 # iSH (on iOS)
 elif [[ "$(uname -r)" == *-ish ]]; then
-	source "$HOME/.bash_platforms/ish"
+	source "$HOME/.platforms/ish"
 fi
 
