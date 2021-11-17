@@ -7,12 +7,21 @@ alias wpaste="powershell.exe Get-Clipboard"
 # Windows XMing startup and stop commands
 xming() {
 	if [[ $# -ne 1 ]]; then
-		echo "usage: xming start|stop"
-		echo "Starts/stops the xming daemon on the host windows machine."
-	elif [[ $1 == "stop" ]]; then
-		powershell.exe "Get-Process -Name XMing |Stop-Process"
+		echo "usage: xming start|stop|status"
+		echo "Starts/stops/reports status of the xming daemon on the host windows machine."
 	elif [[ $1 == "start" ]]; then
 		powershell.exe "& 'C:\Program Files (x86)\Xming\Xming.exe' -multiwindow -clipboard -ac"
+		# Configure display for Windows host's X server
+		export DISPLAY=$(cat /etc/resolv.conf | grep nameserver | awk '{print $2; exit;}'):0
+	elif [[ $1 == "stop" ]]; then
+		powershell.exe "Get-Process -Name XMing |Stop-Process"
+		export DISPLAY=""
+	elif [[ $1 == "status" ]]; then
+		if [[ -n $DISPLAY ]]; then
+			echo "xming is running. DISPLAY=$DISPLAY"
+		else
+			echo "xming is not running."
+		fi
 	fi
 }
 
@@ -27,9 +36,6 @@ fi
 # Change other-writable directories to be orange instead of green-highlighted
 # Useful on wsl because many windows directories are modeled as other-writable
 LS_COLORS=$LS_COLORS'ow=33:'
-
-# Configure display for Windows host's X server
-export DISPLAY=$(cat /etc/resolv.conf | grep nameserver | awk '{print $2; exit;}'):0
 
 # beep via powershell
 _beep() {
