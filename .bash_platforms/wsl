@@ -1,5 +1,9 @@
 #!/usr/bin/env bash
 
+# Windows clipboard copy and paste
+alias wclip=clip.exe
+alias wpaste="powershell.exe Get-Clipboard"
+
 # Powerline configuration
 if [ -f /usr/share/powerline/bindings/bash/powerline.sh ]; then
   powerline-daemon -q
