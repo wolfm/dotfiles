@@ -110,3 +110,7 @@ elif [[ "$(uname -r)" == *-ish ]]; then
 	source "$HOME/.platforms/ish"
 fi
 
+# Initialize environment for Rust if installed
+if [ -f "$HOME/.cargo/env" ]; then
+	. "$HOME/.cargo/env"
+fi
