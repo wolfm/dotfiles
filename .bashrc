@@ -78,11 +78,19 @@ fi
 unset color_prompt force_color_prompt
 
 # Powerline config
-if [ -f /usr/share/powerline/bindings/bash/powerline.sh ]; then
+if command -v powerline-daemon &> /dev/null; then
 	powerline-daemon -q
 	POWERLINE_BASH_CONTINUATION=1
 	POWERLINE_BASH_SELECT=1
-	source /usr/share/powerline/bindings/bash/powerline.sh
+	# if installed through pip
+	if [ -f $HOME/.local/lib/python3.8/site-packages/powerline/bindings/bash/powerline.sh ]; then
+		source $HOME/.local/lib/python3.8/site-packages/powerline/bindings/bash/powerline.sh
+	# If installed through apt
+	elif [ -f /usr/share/powerline/bindings/bash/powerline.sh ]; then
+		source /usr/share/powerline/bindings/bash/powerline.sh
+	else
+		echo "Could not locate powerline.sh"
+	fi
 fi
 
 
