@@ -7,6 +7,10 @@ set tabstop=4
 set shiftwidth=4
 set autoindent
 
+" Prevent text wrapping in middle of word
+set wrap
+set linebreak
+
 " Key Mappings
 map <F3> :NERDTreeToggle<CR>
 
