@@ -5,23 +5,49 @@ alias wclip=clip.exe
 alias wpaste="powershell.exe Get-Clipboard"
 
 # Windows XMing startup and stop commands
+
+# Default Xming path. Replace in device-specific script if located on a different path.
+export XMING_PATH='C:\ProgramData\Microsoft\Windows\Start Menu\Programs\Xming\Xming.lnk'
+xming_usage() {
+	echo "usage: xming start|stop|status"
+	echo "Starts/stops/reports status of the xming daemon on the host windows machine."
+}
 xming() {
+	# Usage
 	if [[ $# -ne 1 ]]; then
-		echo "usage: xming start|stop|status"
-		echo "Starts/stops/reports status of the xming daemon on the host windows machine."
+		xming_usage
+
+	# Start Xming (if not already running)
 	elif [[ $1 == "start" ]]; then
-		powershell.exe "& 'C:\Program Files (x86)\Xming\Xming.exe' -multiwindow -clipboard -ac"
-		# Configure display for Windows host's X server
-		export DISPLAY=$(cat /etc/resolv.conf | grep nameserver | awk '{print $2; exit;}'):0
+		if [[ -n $DISPLAY ]]; then
+			echo "xming is already running."
+			return 2
+		else
+			powershell.exe "& '${XMING_PATH}' -multiwindow -clipboard -ac"
+			# Configure display for Windows host's X server
+			export DISPLAY=$(cat /etc/resolv.conf | grep nameserver | awk '{print $2; exit;}'):0
+		fi
+
+	# Stop xming (if running)
 	elif [[ $1 == "stop" ]]; then
-		powershell.exe "Get-Process -Name XMing |Stop-Process"
-		export DISPLAY=""
+		if [[ -n $DISPLAY ]]; then
+			powershell.exe "Get-Process -Name XMing |Stop-Process"
+			export DISPLAY=""
+		else
+			echo "xming is not running."
+			return 3
+		fi
+
+	# Write xming status to stdout
 	elif [[ $1 == "status" ]]; then
 		if [[ -n $DISPLAY ]]; then
 			echo "xming is running. DISPLAY=$DISPLAY"
 		else
 			echo "xming is not running."
 		fi
+	else
+		xming_usage
+		return 1
 	fi
 }
 
