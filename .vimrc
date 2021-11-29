@@ -11,6 +11,12 @@ set autoindent
 set wrap
 set linebreak
 
+" Shorten escape-key timeout from long default
+" May be useful to increase if I use shortcuts involving escape, 
+" in particular on remote systems
+set ttimeout
+set ttimeoutlen=20
+
 " Key Mappings
 map <F3> :NERDTreeToggle<CR>
 
@@ -29,6 +35,7 @@ if glob('~/.vim/autoload/plug.vim')!=#""
 	Plug 'vim-syntastic/syntastic'
 	Plug 'arcticicestudio/nord-vim'
 	Plug 'airblade/vim-gitgutter'
+	" Plug 'vim-airline/vim-airline'
 
 	" TODO Manually install covim?
 	Plug 'wolfm/CoVim' , { 'on' : 'CoVim' }
