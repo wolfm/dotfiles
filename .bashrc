@@ -87,7 +87,7 @@ else
 		export POWERLINE_BASE_DIR="${PYTHON3_USER_SITE_PACKAGES_DIR}/powerline/"
 	fi
 fi
-if [ -n $POWERLINE_BASE_DIR ]; then
+if [ ! -z $POWERLINE_BASE_DIR ]; then
 	powerline-daemon -q
 	POWERLINE_BASH_CONTINUATION=1
 	POWERLINE_BASH_SELECT=1
