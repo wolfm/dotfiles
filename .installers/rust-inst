@@ -1,0 +1,14 @@
+#!/usr/bin/env bash
+# rust (rustc, cargo, rustup) install script
+
+if [[ -d ~/.cargo ]]; then
+	echo "Rust already installed."
+	return 1
+fi
+
+echo "Installing Rust..."
+
+curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
+
+echo "Rust installed."
+
