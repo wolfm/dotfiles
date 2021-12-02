@@ -11,6 +11,11 @@ set autoindent
 set wrap
 set linebreak
 
+" Use true colors if available
+if has ("termguicolors")
+	set termguicolors
+endif
+
 " Shorten escape-key timeout from long default
 " May be useful to increase if I use shortcuts involving escape, 
 " in particular on remote systems
