@@ -14,6 +14,7 @@ alias git3="git add -A && git commit && git push"
 alias ll="ls -AlF"
 alias la='ls -a'
 alias l="ls -l"
+alias diff="diff --color"
 
 # Functions
 mkdire() {
