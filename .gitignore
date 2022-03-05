@@ -13,6 +13,7 @@
 !.vimrc
 !.vim
 !.tmux.conf
+!/.commonrc
 
 # Ignore installed vim plugins
 .vim/plugged/
