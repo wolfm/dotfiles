@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+
+# re-alias ls commands to use the G flag, which enables color output on macos
+alias ll="ls -GAlF"
+alias la='ls -Ga'
+alias l="ls -Gl"
+alias ls="ls -G"

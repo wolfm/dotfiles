@@ -55,14 +55,16 @@ export GCC_COLORS='error=01;31:warning=01;35:note=01;36:caret=01;32:locus=01:quo
 # WSL
 if [[ -n "$WSL_DISTRO_NAME" || -n "$IS_WSL" ]]; then
     source "$HOME/.platforms/wsl"
+elif [[ "$(uname -s)" == Darwin ]]; then
+	source "$HOME/.platforms/macos"
 # iSH (on iOS)
 elif [[ "$(uname -r)" == *-ish ]]; then
-        source "$HOME/.platforms/ish"
+    source "$HOME/.platforms/ish"
 fi
 
 # Initialize environment for Rust if installed
 if [ -f "$HOME/.cargo/env" ]; then
-        . "$HOME/.cargo/env"
+    . "$HOME/.cargo/env"
 fi
 
 # Make less more friendly for non-text input files, see lesspipe(1)

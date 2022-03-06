@@ -1,5 +1,10 @@
 source ~/.commonrc
 
+if [[ "$(uname -s)" == Darwin ]]; then
+    bindkey "^[[1;3C" forward-word
+	bindkey "^[[1;3D" backward-word
+fi
+
 # >>> conda initialize >>>
 # !! Contents within this block are managed by 'conda init' !!
 __conda_setup="$('/opt/anaconda3/bin/conda' 'shell.zsh' 'hook' 2> /dev/null)"
