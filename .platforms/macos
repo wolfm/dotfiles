@@ -6,8 +6,14 @@ alias la='ls -Ga'
 alias l="ls -Gl"
 alias ls="ls -G"
 
-if command -v colordiff
-	alias diff=colordiff
+# diff --color not supported on macos
+# Replace diff --color alias from .commonrc
+if command -v colordiff &> /dev/null
+then
+    alias diff=colordiff
 else
-	alias diff=diff # Cancel diff --color alias in .commonrc
+    alias diff=diff # Cancel diff --color alias in .commonrc
 fi
+
+# iPython convenient alias
+alias ipython="python3 -m IPython"
