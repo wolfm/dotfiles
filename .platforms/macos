@@ -5,3 +5,9 @@ alias ll="ls -GAlF"
 alias la='ls -Ga'
 alias l="ls -Gl"
 alias ls="ls -G"
+
+if command -v colordiff
+	alias diff=colordiff
+else
+	alias diff=diff # Cancel diff --color alias in .commonrc
+fi
