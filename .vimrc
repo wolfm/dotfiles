@@ -6,6 +6,7 @@ set number
 set tabstop=4
 set shiftwidth=4
 set autoindent
+set expandtab
 
 " Prevent text wrapping in middle of word
 set wrap
@@ -40,7 +41,7 @@ if glob('~/.vim/autoload/plug.vim')!=#""
 	Plug 'vim-syntastic/syntastic'
 	Plug 'arcticicestudio/nord-vim'
 	Plug 'airblade/vim-gitgutter'
-	" Plug 'vim-airline/vim-airline'
+	Plug 'vim-airline/vim-airline'
 
 	" TODO Manually install covim?
 	Plug 'wolfm/CoVim' , { 'on' : 'CoVim' }
@@ -55,13 +56,13 @@ else
 	echo "It appears vim-plug is not installed - run ~/.install to install it!"
 endif
 
-python3 << EOF
-try:
-	from powerline.vim import setup as powerline_setup
-	powerline_setup()
-	del powerline_setup
-except ModuleNotFoundError: # Works in python3 version >= 3.6
-	pass
-EOF
+" python3 << EOF
+" try:
+" 	from powerline.vim import setup as powerline_setup
+" 	powerline_setup()
+" 	del powerline_setup
+" except ModuleNotFoundError: # Works in python3 version >= 3.6
+" 	pass
+" EOF
 
 set laststatus=2
