@@ -12,6 +12,9 @@ set expandtab
 set wrap
 set linebreak
 
+" Enable mouse scroll
+set mouse=a
+
 " Use true colors if available
 if has ("termguicolors")
 	set termguicolors
