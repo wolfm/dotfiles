@@ -45,6 +45,7 @@ if glob('~/.vim/autoload/plug.vim')!=#""
 	Plug 'arcticicestudio/nord-vim'
 	Plug 'airblade/vim-gitgutter'
 	Plug 'vim-airline/vim-airline'
+    Plug 'bronson/vim-trailing-whitespace'
 
 	" TODO Manually install covim?
 	Plug 'wolfm/CoVim' , { 'on' : 'CoVim' }
