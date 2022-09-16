@@ -8,6 +8,13 @@ set shiftwidth=4
 set autoindent
 set expandtab
 
+" Search case settings
+" ignorecase: makes search case-insensitive by default
+" smartcase: makes search case-sensitive if the query has a capital letter
+" Use \c or \C in a search to override (insensitive/sensitive, respectively)
+set ignorecase
+set smartcase
+
 " Prevent text wrapping in middle of word
 set wrap
 set linebreak
@@ -21,7 +28,7 @@ if has ("termguicolors")
 endif
 
 " Shorten escape-key timeout from long default
-" May be useful to increase if I use shortcuts involving escape, 
+" May be useful to increase if I use shortcuts involving escape,
 " in particular on remote systems
 set ttimeout
 set ttimeoutlen=20
@@ -38,20 +45,23 @@ if glob('~/.vim/autoload/plug.vim')!=#""
 	" vim-plug
 	call plug#begin('~/.vim/plugged')
 
+	Plug 'godlygeek/tabular'
+	Plug 'preservim/vim-markdown' " Needs godlygeek/tabular
 	Plug 'preservim/nerdtree'
 	Plug 'cespare/vim-toml'
 	Plug 'tpope/vim-fugitive'
+	Plug 'tpope/vim-sleuth'
 	Plug 'vim-syntastic/syntastic'
 	Plug 'arcticicestudio/nord-vim'
 	Plug 'airblade/vim-gitgutter'
 	Plug 'vim-airline/vim-airline'
-    Plug 'bronson/vim-trailing-whitespace'
+	Plug 'bronson/vim-trailing-whitespace'
 
 	" TODO Manually install covim?
 	Plug 'wolfm/CoVim' , { 'on' : 'CoVim' }
 
 	call plug#end()
-	
+
 	" default color scheme
 	if glob('~/.vim/plugged/nord-vim/')!=#""
 		colorscheme nord
