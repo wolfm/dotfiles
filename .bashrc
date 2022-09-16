@@ -82,3 +82,22 @@ fi
 # BEGIN_KITTY_SHELL_INTEGRATION
 if test -n "$KITTY_INSTALLATION_DIR" -a -e "$KITTY_INSTALLATION_DIR/shell-integration/bash/kitty.bash"; then source "$KITTY_INSTALLATION_DIR/shell-integration/bash/kitty.bash"; fi
 # END_KITTY_SHELL_INTEGRATION
+
+# Initialize ROS
+source /opt/ros/foxy/setup.bash
+
+# ========= ROS AND RTI INITS =========== #
+# DDS variables
+export NDDSHOME=/opt/rti_connext_dds-6.1.0/
+export RTI_LICENSE_FILE=${NDDSHOME}/rti_license.dat
+source ${NDDSHOME}/resource/scripts/rtisetenv_x64Linux4gcc7.3.0.bash > /dev/null
+export ROS_DOMAIN_ID=100
+export dds_domain=$ROS_DOMAIN_ID
+# rmw_connext variables
+export CONNEXTDDS_DIR=${NDDSHOME}
+source /opt/ros2_connextdds/src/ros2/rmw_connextdds/install/setup.bash
+export RMW_IMPLEMENTATION=rmw_connextdds
+# ROS variables
+source /opt/ros/foxy/setup.bash
+# ==================== #
+
