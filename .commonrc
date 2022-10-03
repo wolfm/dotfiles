@@ -91,3 +91,10 @@ fi
 # Make less more friendly for non-text input files, see lesspipe(1)
 [ -x /usr/bin/lesspipe ] && eval "$(SHELL=/bin/sh lesspipe)"
 
+# Environment Variables for testing CC
+# export dds_domain=1
+export robotName="test_robot"
+export main_path="/home/$USER/relativity-dev"
+export robotPaths="${main_path}/paths"
+export configPaths="${main_path}/configurations"
+
