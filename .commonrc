@@ -43,13 +43,14 @@ if [ -x "$HOME/.pyenv/bin/pyenv" ]; then
     lazyload pyenv init_pyenv
 fi
 
+# TODO remove this if it proves to be unecessary
 # If npm installed, set npm global module install location to ~/.npm
 # User doesn't have access to usr/bin/lib/..., the default location
-if which npm &> /dev/null ; then
-    npm set prefix ~/.npm
-    PATH="$HOME/.npm/bin:$PATH"
-    PATH="./node_modules/.bin:$PATH"
-fi
+# if which npm &> /dev/null ; then
+#     npm set prefix ~/.npm
+#     PATH="$HOME/.npm/bin:$PATH"
+#     PATH="./node_modules/.bin:$PATH"
+# fi
 
 # Make vim default editor
 export EDITOR=vim
