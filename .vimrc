@@ -1,3 +1,7 @@
+" Custom commands
+let mapleader = " "
+nmap <leader>t :NERDTreeToggle<cr>
+
 " Syntax highlighting and line numbers
 syntax on
 set number
@@ -7,6 +11,9 @@ set tabstop=4
 set shiftwidth=4
 set autoindent
 set expandtab
+
+" Disable auto-comment
+autocmd FileType * setlocal formatoptions-=c formatoptions-=r formatoptions-=o
 
 " Search case settings
 " ignorecase: makes search case-insensitive by default
@@ -26,6 +33,9 @@ set mouse=a
 if has ("termguicolors")
 	set termguicolors
 endif
+
+" Disable vim-markdown folding
+let g:vim_markdown_folding_disabled = 1
 
 " Shorten escape-key timeout from long default
 " May be useful to increase if I use shortcuts involving escape,
@@ -56,6 +66,8 @@ if glob('~/.vim/autoload/plug.vim')!=#""
 	Plug 'airblade/vim-gitgutter'
 	Plug 'vim-airline/vim-airline'
 	Plug 'bronson/vim-trailing-whitespace'
+	Plug 'leafgarland/typescript-vim'
+	Plug 'peitalin/vim-jsx-typescript'
 
 	" TODO Manually install covim?
 	Plug 'wolfm/CoVim' , { 'on' : 'CoVim' }
