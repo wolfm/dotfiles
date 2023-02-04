@@ -13,6 +13,12 @@ mkdire() {
     mkdir $1 && cd $_
 }
 
+# Use neovim if installed
+if command -v nvim &> /dev/null
+then
+    alias vim=nvim
+fi
+
 # Initialize pyenv if installed
 if [ -x "$HOME/.pyenv/bin/pyenv" ]; then
     export PYENV_ROOT="$HOME/.pyenv"
