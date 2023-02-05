@@ -50,7 +50,7 @@ fi
 # Make vim default editor
 export EDITOR=vim
 
-# Strat ssh agent
+# Start ssh agent
 eval $(ssh-agent &> /dev/null)
 
 # Enable color support of ls and also add handy aliases
