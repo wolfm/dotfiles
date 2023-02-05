@@ -8,9 +8,16 @@ alias la='ls -a'
 alias l="ls -l"
 alias diff="diff --color"
 
-# Functions
+# Func: Make directory and cd into it
 mkdire() {
     mkdir $1 && cd $_
+}
+
+# Func: lazyload a command when it is used
+# Arg 1: Command to lazy-load
+# Arg 2: bash function for initialization code
+lazyload() {
+    alias ${1}="unalias ${1}; ${2}; ${1}"
 }
 
 # Use neovim if installed
@@ -19,13 +26,17 @@ then
     alias vim=nvim
 fi
 
-# Initialize pyenv if installed
-if [ -x "$HOME/.pyenv/bin/pyenv" ]; then
+init_pyenv() {
     export PYENV_ROOT="$HOME/.pyenv"
     export PATH="$PYENV_ROOT/bin:$PATH"
     eval "$(pyenv init --path)"
     eval "$(pyenv init -)"
     export PYENV_VIRTUALENV_DISABLE_PROMPT=1 # Needed for pyenv 2.0.7
+}
+
+# Lazyload pyenv if installed
+if [ -x "$HOME/.pyenv/bin/pyenv" ]; then
+    lazyload pyenv init_pyenv
 fi
 
 # If npm installed, set npm global module install location to ~/.npm
