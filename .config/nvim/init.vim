@@ -4,6 +4,13 @@ nnoremap <leader>b :NERDTreeToggle<cr>
 nnoremap <leader>r :source $MYVIMRC<cr>
 nnoremap <leader>p :Files<cr>
 
+" Automatically install vim-plug if not installed
+let data_dir = has('nvim') ? stdpath('data') . '/site' : '~/.vim'
+if empty(glob(data_dir . '/autoload/plug.vim'))
+    silent execute '!curl -fLo '.data_dir.'/autoload/plug.vim --create-dirs  https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
+    autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
+endif
+
 " Plugins
 call plug#begin('~/.config/nvim/plugged')
 
@@ -56,6 +63,6 @@ set linebreak
 
 " Use true colors if available
 if has ('termguicolors')
-	set termguicolors
+    set termguicolors
 endif
 
