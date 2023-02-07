@@ -64,7 +64,7 @@ alias beep="_beep 1800 300"
 
 ### WSL DEFAULTS ###
 if ! [ -n $BASH ]; then
-# If this is an xterm set the title to user@host:dir
+    # If this is an xterm set the title to user@host:dir
     case "$TERM" in
     xterm*|rxvt*)
         PS1="\[\e]0;${debian_chroot:+($debian_chroot)}\u@\h: \w\a\]$PS1"
