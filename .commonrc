@@ -1,3 +1,11 @@
+# Source if exists
+sourceif() {
+    [ -f "$1" ] && source $@
+}
+
+# Source work commonrc if it exists
+sourceif .dotfiles-work/.commonrc
+
 # Aliases
 alias activate="source env/bin/activate"
 alias agent="eval $(ssh-agent)"
@@ -8,16 +16,20 @@ alias la='ls -a'
 alias l="ls -l"
 alias diff="diff --color"
 
-# Func: Make directory and cd into it
+# Make directory and cd into it
 mkdire() {
     mkdir $1 && cd $_
 }
 
-# Func: lazyload a command when it is used
+# lazyload a command when it is used
 # Arg 1: Command to lazy-load
 # Arg 2: bash function for initialization code
 lazyload() {
     alias ${1}="unalias ${1}; ${2}; ${1}"
+}
+
+wfh() {
+    echo "nameserver ${ZSCALER_NAMESERVER}" | sudo tee -a /etc/resolv.conf
 }
 
 # Use neovim if installed
@@ -25,10 +37,6 @@ if command -v nvim &> /dev/null
 then
     alias vim=nvim
 fi
-
-wfh() {
-    echo "nameserver 192.168.254.254" | sudo tee -a /etc/resolv.conf
-}
 
 init_pyenv() {
     export PYENV_ROOT="$HOME/.pyenv"
@@ -43,14 +51,13 @@ if [ -x "$HOME/.pyenv/bin/pyenv" ]; then
     lazyload pyenv init_pyenv
 fi
 
-# TODO remove this if it proves to be unecessary
 # If npm installed, set npm global module install location to ~/.npm
 # User doesn't have access to usr/bin/lib/..., the default location
-# if which npm &> /dev/null ; then
-#     npm set prefix ~/.npm
-#     PATH="$HOME/.npm/bin:$PATH"
-#     PATH="./node_modules/.bin:$PATH"
-# fi
+if which npm &> /dev/null ; then
+    npm set prefix ~/.npm
+    PATH="$HOME/.npm/bin:$PATH"
+    PATH="./node_modules/.bin:$PATH"
+fi
 
 # Make vim default editor
 export EDITOR=vim
@@ -92,10 +99,10 @@ fi
 # Make less more friendly for non-text input files, see lesspipe(1)
 [ -x /usr/bin/lesspipe ] && eval "$(SHELL=/bin/sh lesspipe)"
 
-# Environment Variables for testing CC
-# export dds_domain=1
-export robotName="test_robot"
-export main_path="/home/$USER/relativity-dev"
-export robotPaths="${main_path}/paths"
-export configPaths="${main_path}/configurations"
-
+# Lazy load nvm
+init_nvm() {
+    export NVM_DIR="$HOME/.nvm"
+    [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+    [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+}
+lazyload nvm init_nvm
