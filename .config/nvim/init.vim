@@ -21,6 +21,7 @@ Plug 'preservim/nerdtree', { 'on': 'NERDTreeToggle' }
 Plug 'arcticicestudio/nord-vim'
 Plug 'airblade/vim-gitgutter'
 Plug 'bronson/vim-trailing-whitespace'
+Plug 'tpope/vim-commentary'
 
 Plug 'junegunn/fzf', { 'do': { -> fzf#install(I) } }
 Plug 'junegunn/fzf.vim'
@@ -29,6 +30,10 @@ Plug 'junegunn/fzf.vim'
 " Plug 'dstein64/vim-startuptime'
 
 call plug#end()
+
+" Shortcuts for tpope/vim-commentary
+nnoremap <leader>/ :Commentary<cr>
+vnoremap <leader>/ :Commentary<cr>
 
 " Default colorscheme
 colorscheme nord
