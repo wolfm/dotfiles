@@ -81,6 +81,13 @@ set expandtab
 set wrap
 set linebreak
 
+" Search case settings
+" ignorecase: makes search case-insensitive by default
+" smartcase: makes search case-sensitive if the query has a capital letter
+" Use \c or \C in a search to override (insensitive/sensitive, respectively)
+set ignorecase
+set smartcase
+
 " Use true colors if available
 if has ('termguicolors')
     set termguicolors
