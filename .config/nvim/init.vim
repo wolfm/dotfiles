@@ -31,7 +31,7 @@ Plug 'airblade/vim-gitgutter'
 Plug 'bronson/vim-trailing-whitespace'
 Plug 'tpope/vim-commentary'
 Plug 'rhysd/git-messenger.vim', { 'on': 'GitMessenger' }
-
+Plug 'godlygeek/tabular'
 Plug 'junegunn/fzf', { 'do': { -> fzf#install(I) } }
 Plug 'junegunn/fzf.vim'
 
