@@ -32,6 +32,9 @@ wfh() {
     echo "nameserver ${ZSCALER_NAMESERVER}" | sudo tee -a /etc/resolv.conf
 }
 
+# Set Bat theme (used for fzf code highlighting"
+export BAT_THEME="Nord"
+
 # Use neovim if installed
 if command -v nvim &> /dev/null
 then

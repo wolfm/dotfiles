@@ -2,11 +2,12 @@
 let mapleader = " "
 nnoremap <leader>b :NERDTreeToggle<cr>
 nnoremap <leader>r :source $MYVIMRC<cr>
-nnoremap <leader>p :Files<cr>
+nnoremap <leader>p :GFiles<cr>
 nnoremap <leader>l :set list!<cr>
 set listchars=eol:¬,tab:⇥\.,nbsp:_,extends:»,precedes:«
 
 nnoremap <leader>m :GitMessenger<cr>
+nnoremap <leader>f :Rg<cr>
 
 " Automatically install vim-plug if  ot installed
 let data_dir = has('nvim') ? stdpath('data') . '/site' : '~/.vim'
@@ -48,7 +49,7 @@ vnoremap <leader>/ :Commentary<cr>
 colorscheme nord
 
 " Set working directory to that of opened file
-set autochdir
+" set autochdir
 
 " TODO If opening in directory, open NERDTree to the side
 " If opening files, set working directory to the nearest common ancestor of those
