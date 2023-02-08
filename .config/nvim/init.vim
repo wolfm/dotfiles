@@ -3,6 +3,8 @@ let mapleader = " "
 nnoremap <leader>b :NERDTreeToggle<cr>
 nnoremap <leader>r :source $MYVIMRC<cr>
 nnoremap <leader>p :Files<cr>
+nnoremap <leader>l :set list!<cr>
+set listchars=eol:¬,tab:⇥\.,nbsp:_,extends:»,precedes:«
 
 " Automatically install vim-plug if not installed
 let data_dir = has('nvim') ? stdpath('data') . '/site' : '~/.vim'

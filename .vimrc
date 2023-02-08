@@ -4,6 +4,7 @@ nnoremap <leader>t :NERDTreeToggle<cr>
 nnoremap <leader>f :Files<cr>
 nnoremap <leader>r :Rg<cr>
 nnoremap <leader>s :so ~/.vimrc<cr>
+nnoremap <leader>l :set list!<cr>
 
 " Syntax highlighting and line numbers
 syntax on
