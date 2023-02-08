@@ -6,7 +6,9 @@ nnoremap <leader>p :Files<cr>
 nnoremap <leader>l :set list!<cr>
 set listchars=eol:¬,tab:⇥\.,nbsp:_,extends:»,precedes:«
 
-" Automatically install vim-plug if not installed
+nnoremap <leader>m :GitMessenger<cr>
+
+" Automatically install vim-plug if  ot installed
 let data_dir = has('nvim') ? stdpath('data') . '/site' : '~/.vim'
 if empty(glob(data_dir . '/autoload/plug.vim'))
     silent execute '!curl -fLo '.data_dir.'/autoload/plug.vim --create-dirs  https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
@@ -22,6 +24,7 @@ Plug 'arcticicestudio/nord-vim'
 Plug 'airblade/vim-gitgutter'
 Plug 'bronson/vim-trailing-whitespace'
 Plug 'tpope/vim-commentary'
+Plug 'rhysd/git-messenger.vim', { 'on': 'GitMessenger' }
 
 Plug 'junegunn/fzf', { 'do': { -> fzf#install(I) } }
 Plug 'junegunn/fzf.vim'
