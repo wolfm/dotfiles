@@ -12,16 +12,19 @@ if empty(glob(data_dir . '/autoload/plug.vim'))
 endif
 
 " Plugins
+" TODO try using packer for improved plugin loading performance?
 call plug#begin('~/.config/nvim/plugged')
 
-Plug 'preservim/nerdtree'
+Plug 'preservim/nerdtree', { 'on': 'NERDTreeToggle' }
 Plug 'arcticicestudio/nord-vim'
 Plug 'airblade/vim-gitgutter'
-Plug 'vim-airline/vim-airline'
 Plug 'bronson/vim-trailing-whitespace'
 
 Plug 'junegunn/fzf', { 'do': { -> fzf#install(I) } }
 Plug 'junegunn/fzf.vim'
+
+" Enable to conveniently measure startup time
+" Plug 'dstein64/vim-startuptime'
 
 call plug#end()
 
