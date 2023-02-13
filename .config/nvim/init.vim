@@ -1,60 +1,51 @@
-" Custom commands
+" Leader key
 let mapleader = " "
-nnoremap <leader>b :NERDTreeToggle<cr>
-nnoremap <leader>r :source $MYVIMRC<cr>
-nnoremap <leader>p :GFiles<cr>
-nnoremap <leader>l :set list!<cr>
-set listchars=eol:¬,tab:⇥\.,nbsp:_,extends:»,precedes:«
-
-nnoremap <leader>m :GitMessenger<cr>
-nnoremap <leader>f :Rg<cr>
-
-" Automatically install vim-plug if  ot installed
-let data_dir = has('nvim') ? stdpath('data') . '/site' : '~/.vim'
-if empty(glob(data_dir . '/autoload/plug.vim'))
-    silent execute '!curl -fLo '.data_dir.'/autoload/plug.vim --create-dirs  https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
-    autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
-endif
-
-" Automatically install missing plugins on startup
-autocmd VimEnter *
-  \  if len(filter(values(g:plugs), '!isdirectory(v:val.dir)'))
-  \|   PlugInstall --sync | q
-  \| endif
 
 " Plugins
-" TODO try using packer for improved plugin loading performance?
 call plug#begin('~/.config/nvim/plugged')
 
-Plug 'preservim/nerdtree', { 'on': 'NERDTreeToggle' }
 Plug 'arcticicestudio/nord-vim'
 Plug 'airblade/vim-gitgutter'
 Plug 'bronson/vim-trailing-whitespace'
-Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-surround'
-Plug 'rhysd/git-messenger.vim', { 'on': 'GitMessenger' }
 Plug 'godlygeek/tabular'
+
+Plug 'preservim/nerdtree', { 'on': 'NERDTreeToggle' }
+nnoremap <leader>b :NERDTreeToggle<cr>
+
+Plug 'tpope/vim-commentary'
+nnoremap <leader>/ :Commentary<cr>
+vnoremap <leader>/ :Commentary<cr>
+
 Plug 'junegunn/fzf', { 'do': { -> fzf#install(I) } }
 Plug 'junegunn/fzf.vim'
+nnoremap <leader>p :GFiles<cr>
+nnoremap <leader>f :Rg<cr>
+
+Plug 'rhysd/git-messenger.vim', { 'on': 'GitMessenger' }
+nnoremap <leader>m :GitMessenger<cr>
 
 " Enable to conveniently measure startup time
 " Plug 'dstein64/vim-startuptime'
 
 call plug#end()
 
-" Shortcuts for tpope/vim-commentary
-nnoremap <leader>/ :Commentary<cr>
-vnoremap <leader>/ :Commentary<cr>
-
 " Default colorscheme
 colorscheme nord
+
+" Improved list mode
+nnoremap <leader>l :set list!<cr>
+set listchars=eol:¬,tab:⇥\.,nbsp:_,extends:»,precedes:«
+
+" Shortcut to source nvimrc
+nnoremap <leader>r :source $MYVIMRC<cr>
 
 " Set working directory to that of opened file
 " set autochdir
 
 " TODO If opening in directory, open NERDTree to the side
-" If opening files, set working directory to the nearest common ancestor of those
-" files?
+" If opening files, set working directory to the nearest common ancestor of
+" those files?
 " If opening a directory, make that the working directory, open an empty file,
 " and start NERDTree to the side
 " if isdirectory :q
@@ -96,4 +87,17 @@ set smartcase
 if has ('termguicolors')
     set termguicolors
 endif
+
+" Automatically install vim-plug if  ot installed
+let data_dir = has('nvim') ? stdpath('data') . '/site' : '~/.vim'
+if empty(glob(data_dir . '/autoload/plug.vim'))
+    silent execute '!curl -fLo '.data_dir.'/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
+    autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
+endif
+
+" Automatically install missing plugins on startup
+autocmd VimEnter *
+  \  if len(filter(values(g:plugs), '!isdirectory(v:val.dir)'))
+  \|   PlugInstall --sync | q
+  \| endif
 
