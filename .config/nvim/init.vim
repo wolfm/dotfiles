@@ -31,6 +31,7 @@ Plug 'arcticicestudio/nord-vim'
 Plug 'airblade/vim-gitgutter'
 Plug 'bronson/vim-trailing-whitespace'
 Plug 'tpope/vim-commentary'
+Plug 'tpope/vim-surround'
 Plug 'rhysd/git-messenger.vim', { 'on': 'GitMessenger' }
 Plug 'godlygeek/tabular'
 Plug 'junegunn/fzf', { 'do': { -> fzf#install(I) } }
@@ -76,6 +77,9 @@ set tabstop=4
 set shiftwidth=4
 set autoindent
 set expandtab
+
+" Mouse
+set mouse=a "enable mouse scroll
 
 " Prevent text wrapping in middle of word
 set wrap

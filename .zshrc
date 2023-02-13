@@ -6,9 +6,6 @@ export ZSH="$HOME/.oh-my-zsh"
 
 ZSH_THEME="robbyrussell"
 
-# Use NVM lazy-loading due to slow startup
-export NVM_LAZY_LOAD=true
-
 plugins=(
     git
     docker
