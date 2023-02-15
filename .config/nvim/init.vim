@@ -14,8 +14,6 @@ Plug 'preservim/nerdtree', { 'on': 'NERDTreeToggle' }
 nnoremap <leader>b :NERDTreeToggle<cr>
 
 Plug 'tpope/vim-commentary'
-nnoremap <leader>/ :Commentary<cr>
-vnoremap <leader>/ :Commentary<cr>
 
 Plug 'junegunn/fzf', { 'do': { -> fzf#install(I) } }
 Plug 'junegunn/fzf.vim'
@@ -39,6 +37,9 @@ set listchars=eol:¬,tab:⇥\.,nbsp:_,extends:»,precedes:«
 
 " Shortcut to source nvimrc
 nnoremap <leader>r :source $MYVIMRC<cr>
+
+" Shortcut to turn off search highlighting
+nnoremap <leader>n :noh<cr>
 
 " Set working directory to that of opened file
 " set autochdir
