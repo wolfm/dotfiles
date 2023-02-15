@@ -55,6 +55,9 @@ nnoremap <leader>r :source $MYVIMRC<cr>
 " Rulers
 set colorcolumn=81,121
 
+" Autoformatting
+set textwidth=80
+
 " Set split directions for sp and vsp commands
 set splitright
 set splitbelow
