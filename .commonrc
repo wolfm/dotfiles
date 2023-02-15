@@ -39,7 +39,11 @@ export BAT_THEME="Nord"
 if command -v nvim &> /dev/null
 then
     alias vim=nvim
+    export EDITOR=nvim
+else
+    export EDITOR=vim
 fi
+
 
 wfh() {
     echo "nameserver 192.168.254.254" | sudo tee -a /etc/resolv.conf
@@ -66,9 +70,6 @@ fi
 #     PATH="$HOME/.npm/bin:$PATH"
 #     PATH="./node_modules/.bin:$PATH"
 # fi
-
-# Make vim default editor
-export EDITOR=vim
 
 # Start ssh agent
 eval $(ssh-agent &> /dev/null)
