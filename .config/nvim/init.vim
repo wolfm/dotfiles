@@ -2,31 +2,60 @@
 let mapleader = " "
 
 " Plugins
-call plug#begin('~/.config/nvim/plugged')
+call plug#begin()
 
 Plug 'arcticicestudio/nord-vim'
 Plug 'airblade/vim-gitgutter'
-Plug 'bronson/vim-trailing-whitespace'
 Plug 'tpope/vim-surround'
-Plug 'godlygeek/tabular'
-
-Plug 'preservim/nerdtree', { 'on': 'NERDTreeToggle' }
-nnoremap <leader>b :NERDTreeToggle<cr>
-
+Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-commentary'
-
-Plug 'junegunn/fzf', { 'do': { -> fzf#install(I) } }
-Plug 'junegunn/fzf.vim'
-nnoremap <leader>p :GFiles<cr>
-nnoremap <leader>f :Rg<cr>
+Plug 'godlygeek/tabular'
+Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() }}
+" Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 
 Plug 'rhysd/git-messenger.vim', { 'on': 'GitMessenger' }
 nnoremap <leader>m :GitMessenger<cr>
+
+Plug 'nvim-tree/nvim-web-devicons'
+Plug 'nvim-tree/nvim-tree.lua'
+nnoremap <leader>b :NvimTreeFocus<cr>
+" let g:NERDTreeQuitOnOpen = 1
+
+Plug 'nvim-lua/plenary.nvim'
+Plug 'nvim-telescope/telescope.nvim', {'rev': '0.1.x'}
+nnoremap <C-p> :Telescope find_files<cr>
+nnoremap <leader>f :Telescope live_grep<cr>
 
 " Enable to conveniently measure startup time
 " Plug 'dstein64/vim-startuptime'
 
 call plug#end()
+
+" Configure Lua plugins
+lua << EOF
+vim.g.loaded_netrw = 1
+vim.g.loaded_netrwPlugin = 1
+vim.opt.termguicolors = true
+require("nvim-tree").setup {
+    sync_root_with_cwd = true,
+}
+
+local telescope = require('telescope').setup {
+    defaults = {
+        file_ignore_patterns = { ".git/" }
+    },
+    pickers = {
+        find_files = {
+            hidden = true,
+        },
+        live_grep = {
+            additional_args = function(opts)
+                return {"--hidden"}
+            end
+        },
+    },
+}
+EOF
 
 " Default colorscheme
 colorscheme nord
@@ -40,6 +69,9 @@ nnoremap <leader>r :source $MYVIMRC<cr>
 
 " Shortcut to turn off search highlighting
 nnoremap <leader>n :noh<cr>
+
+" Shortcut to open vimrc
+nnoremap <leader>v :vsp $MYVIMRC<cr>
 
 " Set working directory to that of opened file
 " set autochdir
