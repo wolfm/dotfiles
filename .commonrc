@@ -22,10 +22,18 @@ mkdire() {
 }
 
 # lazyload a command when it is used
-# Arg 1: Command to lazy-load
-# Arg 2: bash function for initialization code
+# Arg 1: bash function with initialization code to lazy-load
+# Other args: Commands that should trigger the initialization code
 lazyload() {
-    alias ${1}="unalias ${1}; ${2}; ${1}"
+
+    INIT_CMD=$1
+    shift
+
+    CMD_LIST="$@"
+
+    for i in "$@"; do
+        alias ${i}="unalias ${CMD_LIST[@]}; ${INIT_CMD}; ${i}"
+    done
 }
 
 wfh() {
@@ -59,7 +67,7 @@ init_pyenv() {
 
 # Lazyload pyenv if installed
 if [ -x "$HOME/.pyenv/bin/pyenv" ]; then
-    lazyload pyenv init_pyenv
+    lazyload init_pyenv pyenv
 fi
 
 # TODO remove this if it proves to be unecessary
@@ -114,4 +122,4 @@ init_nvm() {
     [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
     [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 }
-lazyload nvm init_nvm
+lazyload init_nvm nvm npm

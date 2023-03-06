@@ -40,7 +40,7 @@ init_ros2() {
 	sourceif /opt/ros2_connextdds/src/ros2/rmw_connextdds/install/setup.zsh
 	sourceif /opt/ros/foxy/setup.zsh
 }
-lazyload ros2 init_ros2
+lazyload init_ros2 ros2 colcon
 
 # Measure performance
 # zprof

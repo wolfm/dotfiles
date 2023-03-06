@@ -91,4 +91,4 @@ init_ros2() {
   sourceif /opt/ros2_connextdds/src/ros2/rmw_connextdds/install/setup.bash
   sourceif /opt/ros/foxy/setup.bash
 }
-lazyload ros2 init_ros2
+lazyload init_ros2 ros2
