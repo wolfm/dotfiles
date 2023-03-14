@@ -11,7 +11,8 @@ Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-commentary'
 Plug 'godlygeek/tabular'
 Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() }}
-" Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
+Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
+Plug 'folke/which-key.nvim'
 
 Plug 'rhysd/git-messenger.vim', { 'on': 'GitMessenger' }
 nnoremap <leader>m :GitMessenger<cr>
@@ -55,6 +56,8 @@ local telescope = require('telescope').setup {
         },
     },
 }
+
+require('which-key').setup()
 EOF
 
 " Default colorscheme
@@ -71,7 +74,7 @@ nnoremap <leader>r :source $MYVIMRC<cr>
 nnoremap <leader>n :noh<cr>
 
 " Shortcut to open vimrc
-nnoremap <leader>v :vsp $MYVIMRC<cr>
+nnoremap <leader>v :tabnew $MYVIMRC<cr>
 
 " Set working directory to that of opened file
 " set autochdir
