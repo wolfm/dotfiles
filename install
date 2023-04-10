@@ -3,19 +3,10 @@
 src_dir="$( cd -- "$(dirname "$0" )" >/dev/null 2>&1 ; pwd -P )"
 target_dir="$HOME"
 
-# Loop through every file and directory in the source directory
+# For every file that should be linked into ~
+(cd $src_dir && find * -type f -not -path 'data/*') | while read -r file ; do
 
-(cd $src_dir && find * -type f -not -path './data/*') | while read -r file ; do
-    # Get the filename and directory path
-    filename="$(basename "$file")"
     dirpath="$(dirname $file)"
-
-    # echo "file: $file"
-    # echo "filename: $filename"
-    # echo "dirpath: $dirpath"
-
-    # Prepend a . to the filename
-    filename=".$filename"
 
     # Check if the file is listed in .linkignore
     # if grep -q "^$dirpath/$filename$" "$src_dir/.linkignore"; then
@@ -24,12 +15,10 @@ target_dir="$HOME"
     # fi
 
     # Create the target directory if it doesn't exist
-    mkdir -p "$target_dir/$dirpath"
-    echo "mkdir -p \"$target_dir/$dirpath"\"
+    mkdir -p "$target_dir/.$dirpath"
 
     # Create a symlink from the source file to the target directory
-    ln -s "$src_dir/$file" "$target_dir/$dirpath/$filename"
-    echo "ln -s \"$src_dir/$file" "$target_dir/$dirpath/$filename\""
+    ln -s "$src_dir/$file" "$target_dir/.$file"
 done
 
 # for installer in ~/.installers/*-inst; do
