@@ -4,6 +4,9 @@
 # Path to your oh-my-zsh installation.
 export ZSH="$HOME/.oh-my-zsh"
 
+# Setting for oh-my-zsh
+DISABLE_UPDATE_PROMPT=true
+
 ZSH_THEME="robbyrussell"
 
 plugins=(
