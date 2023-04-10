@@ -38,4 +38,6 @@
     "[python]": {
         "editor.formatOnType": true
     },
+
+    "python.terminal.activateEnvironment": false,
 }

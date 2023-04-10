@@ -1,32 +1,33 @@
 [alias]
-	co = checkout
-	ci = commit
-	st = status
-	br = branch
-	d  = diff
-	dt = difftool
-	ds = diff --staged
-	fe = fetch
-	cp = cherry-pick
+    co = checkout
+    ci = commit
+    st = status
+    br = branch
+    d  = diff
+    dt = difftool
+    ds = diff --staged
+    dh = diff HEAD^
+    fe = fetch
+    cp = cherry-pick
 
-	# From https://stackoverflow.com/questions/1057564/pretty-git-branch-graphs
-	lg1 = log --graph --abbrev-commit --decorate --format=format:'%C(bold blue)%h%C(reset) - %C(bold green)(%ar)%C(reset) %C(white)%s%C(reset) %C(dim white)- %an%C(reset)%C(bold yellow)%d%C(reset)' --all
-	lg2 = log --graph --abbrev-commit --decorate --format=format:'%C(bold blue)%h%C(reset) - %C(bold cyan)%aD%C(reset) %C(bold green)(%ar)%C(reset)%C(bold yellow)%d%C(reset)%n''          %C(white)%s%C(reset) %C(dim white)- %an%C(reset)' --all
-	lg = !"git lg1"
+    # From https://stackoverflow.com/questions/1057564/pretty-git-branch-graphs
+    lg1 = log --graph --abbrev-commit --decorate --format=format:'%C(bold blue)%h%C(reset) - %C(bold green)(%ar)%C(reset) %C(white)%s%C(reset) %C(dim white)- %an%C(reset)%C(bold yellow)%d%C(reset)' --all
+    lg2 = log --graph --abbrev-commit --decorate --format=format:'%C(bold blue)%h%C(reset) - %C(bold cyan)%aD%C(reset) %C(bold green)(%ar)%C(reset)%C(bold yellow)%d%C(reset)%n''          %C(white)%s%C(reset) %C(dim white)- %an%C(reset)' --all
+    lg = !"git lg1"
 [user]
-	name = Michael Wolf
-	email = mjwolf@umich.edu
+    name = Michael Wolf
+    email = mjwolf@umich.edu
 [diff]
-	tool = vimdiff
+    tool = vimdiff
 [difftool]
-	prompt = false
-	trustExitCode = true
+    prompt = false
+    trustExitCode = true
 [filter "lfs"]
-	clean = git-lfs clean -- %f
-	smudge = git-lfs smudge -- %f
-	process = git-lfs filter-process
-	required = true
+    clean = git-lfs clean -- %f
+    smudge = git-lfs smudge -- %f
+    process = git-lfs filter-process
+    required = true
 [init]
-	defaultBranch = main
+    defaultBranch = main
 [includeIf "gitdir:~/work/"]
-	path = .dotfiles-work/.gitconfig
+    path = .dotfiles-work/.gitconfig
