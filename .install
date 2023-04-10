@@ -1,7 +1,37 @@
-#!/usr/bin/env bash
-# dotfiles install script
+#!/usr/bin/env sh
 
-for installer in ~/.installers/*-inst; do
-	source $installer
+src_dir="$( cd -- "$(dirname "$0" )" >/dev/null 2>&1 ; pwd -P )"
+target_dir="$HOME"
+
+# Loop through every file and directory in the source directory
+
+(cd $src_dir && find . -type f -not -path '*/\.git/*' -not -path './data/*') | while read -r file ; do
+    # Get the filename and directory path
+    filename="$(basename "$file")"
+    dirpath="$(dirname $file)"
+
+    # echo "file: $file"
+    # echo "filename: $filename"
+    # echo "dirpath: $dirpath"
+
+    # Prepend a . to the filename
+    # filename=".$filename"
+
+    # Check if the file is listed in .linkignore
+    # if grep -q "^$dirpath/$filename$" "$src_dir/.linkignore"; then
+    #     echo "Ignoring $dirpath/$filename"
+    #     continue
+    # fi
+
+    # Create the target directory if it doesn't exist
+    mkdir -p "$target_dir/$dirpath"
+    echo "$target_dir/$dirpath"
+
+    # Create a symlink from the source file to the target directory
+    ln -s "$src_dir/$file" "$target_dir/$dirpath/$filename"
 done
+
+# for installer in ~/.installers/*-inst; do
+# 	source $installer
+# done
 
