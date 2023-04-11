@@ -39,11 +39,11 @@ fi
 sourceif ${NDDSHOME}/resource/scripts/rtisetenv_x64Linux4gcc7.3.0.zsh > /dev/null
 
 # Lazyload ROS2 if installed
-init_ros2() {
-	sourceif /opt/ros2_connextdds/src/ros2/rmw_connextdds/install/setup.zsh
-	sourceif /opt/ros/foxy/setup.zsh
-}
-lazyload init_ros2 ros2 colcon rosdep
+# init_ros2() {
+# 	sourceif /opt/ros2_connextdds/src/ros2/rmw_connextdds/install/setup.zsh
+# 	sourceif /opt/ros/foxy/setup.zsh
+# }
+# lazyload init_ros2 ros2 colcon rosdep
 
 # Measure performance
 # zprof

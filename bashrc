@@ -68,17 +68,6 @@ if [ ! -z $POWERLINE_BASE_DIR ]; then
 	source "${POWERLINE_BASE_DIR}bindings/bash/powerline.sh"
 fi
 
-# enable programmable completion features (you don't need to enable
-# this if it's already enabled in /etc/bash.bashrc and /etc/profile
-# sources /etc/bash.bashrc).
-if ! shopt -oq posix; then
-  if [ -f /usr/share/bash-completion/bash_completion ]; then
-    . /usr/share/bash-completion/bash_completion
-  elif [ -f /etc/bash_completion ]; then
-    . /etc/bash_completion
-  fi
-fi
-
 # BEGIN_KITTY_SHELL_INTEGRATION
 if test -n "$KITTY_INSTALLATION_DIR" -a -e "$KITTY_INSTALLATION_DIR/shell-integration/bash/kitty.bash"; then source "$KITTY_INSTALLATION_DIR/shell-integration/bash/kitty.bash"; fi
 # END_KITTY_SHELL_INTEGRATION
@@ -86,9 +75,9 @@ if test -n "$KITTY_INSTALLATION_DIR" -a -e "$KITTY_INSTALLATION_DIR/shell-integr
 # Initialize DDS if installed
 sourceif ${NDDSHOME}/resource/scripts/rtisetenv_x64Linux4gcc7.3.0.bash > /dev/null
 
-# Lazyload ROS2 if installed
-init_ros2() {
-  sourceif /opt/ros2_connextdds/src/ros2/rmw_connextdds/install/setup.bash
-  sourceif /opt/ros/foxy/setup.bash
-}
-lazyload init_ros2 ros2 colcon rosdep
+# # Lazyload ROS2 if installed
+# init_ros2() {
+#   sourceif /opt/ros2_connextdds/src/ros2/rmw_connextdds/install/setup.bash
+#   sourceif /opt/ros/foxy/setup.bash
+# }
+# lazyload init_ros2 ros2 colcon rosdep
