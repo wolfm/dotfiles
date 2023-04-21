@@ -30,4 +30,4 @@
 [init]
     defaultBranch = main
 [includeIf "gitdir:~/work/"]
-    path = .dotfiles-work/.gitconfig
+    path = dotfiles-work/.gitconfig
