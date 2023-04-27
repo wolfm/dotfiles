@@ -16,8 +16,8 @@
     lg = !"git lg1"
 
     # Adapted from https://stackoverflow.com/questions/5188320/how-can-i-get-a-list-of-git-branches-ordered-by-most-recent-commit
-    recent = "!r() { refbranch=$1 count=$2; git for-each-ref --sort=-committerdate refs/heads --format='%(refname:short)|%(HEAD)%(color:yellow)%(refname:short)|%(color:bold green)%(committerdate:relative)|%(color:blue)%(subject)|%(color:magenta)%(authorname)%(color:reset)' --color=always --count=${count:-20} | while read line; do branch=$(echo \"$line\" | awk 'BEGIN { FS = \"|\" }; { print $1 }' | tr -d '*'); ahead=$(git rev-list --count \"${refbranch:-origin/main}..${branch}\"); behind=$(git rev-list --count \"${branch}..${refbranch:-origin/main}\"); colorline=$(echo \"$line\" | sed 's/^[^|]*|//'); echo \"$ahead|$behind|$colorline\" | awk -F'|' -vOFS='|' '{$5=substr($5,1,70)}1' ; done | ( echo \"ahead|behind|branch|committed|message|author\\n\" && cat) | column -ts'|';}; r"
-    re = recent
+    recent = "!r() { git branch -r -v --sort=-committerdate --color=always --format='%(refname:short)|%(HEAD)%(color:yellow)%(refname:short)|%(color:bold green)%(committerdate:relative)|%(color:blue)%(subject)|%(color:magenta)%(authorname)%(color:reset)' | while read line; do branch=$(echo \"$line\" | awk 'BEGIN { FS = \"|\" }; { print $1 }' | tr -d '*'); colorline=$(echo \"$line\" | sed 's/^[^|]*|//'); echo \"$colorline\" | awk -F'|' -vOFS='|' '{$3=substr($3,1,70)}1' ; done | ( echo \"branch|committed|message|author\\n\" && cat) | column -ts'|';}; r"
+    rec = recent
 [user]
     name = Michael Wolf
     email = mjwolf@umich.edu
