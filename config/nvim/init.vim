@@ -5,22 +5,27 @@ let mapleader = " "
 call plug#begin()
 
 Plug 'arcticicestudio/nord-vim'
-Plug 'airblade/vim-gitgutter'
 Plug 'tpope/vim-surround'
-Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-commentary'
+Plug 'tpope/vim-eunuch'
 Plug 'godlygeek/tabular'
 Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() }}
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
-Plug 'folke/which-key.nvim'
 
+" Git plugins
+Plug 'airblade/vim-gitgutter'
+Plug 'tpope/vim-fugitive'
+Plug 'APZelos/blamer.nvim'
+let g:blamer_date_format = '%b %d %y'
+let g:blamer_relative_time = 1
+let g:blamer_enabled = 1
 Plug 'rhysd/git-messenger.vim', { 'on': 'GitMessenger' }
 nnoremap <leader>m :GitMessenger<cr>
 
+" Tree plugins
 Plug 'nvim-tree/nvim-web-devicons'
 Plug 'nvim-tree/nvim-tree.lua'
 nnoremap <leader>b :NvimTreeFocus<cr>
-" let g:NERDTreeQuitOnOpen = 1
 
 Plug 'nvim-lua/plenary.nvim'
 Plug 'nvim-telescope/telescope.nvim', {'rev': '0.1.x'}
@@ -56,8 +61,6 @@ local telescope = require('telescope').setup {
         },
     },
 }
-
-require('which-key').setup()
 EOF
 
 " Default colorscheme
@@ -78,13 +81,6 @@ nnoremap <leader>v :tabnew $MYVIMRC<cr>
 
 " Set working directory to that of opened file
 " set autochdir
-
-" TODO If opening in directory, open NERDTree to the side
-" If opening files, set working directory to the nearest common ancestor of
-" those files?
-" If opening a directory, make that the working directory, open an empty file,
-" and start NERDTree to the side
-" if isdirectory :q
 
 " endif
 
