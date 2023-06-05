@@ -4,7 +4,7 @@ sourceif() {
 }
 
 # Source work commonrc if it exists
-sourceif .dotfiles-work/.commonrc
+sourceif dotfiles-work/.commonrc
 
 # Aliases
 alias activate="source env/bin/activate"
@@ -78,6 +78,9 @@ fi
 #     PATH="$HOME/.npm/bin:$PATH"
 #     PATH="./node_modules/.bin:$PATH"
 # fi
+
+# Add user scripts in ~/.local/bin to path
+export PATH="$HOME/.local/bin:$PATH"
 
 # Start ssh agent
 eval $(ssh-agent &> /dev/null)
