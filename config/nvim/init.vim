@@ -9,7 +9,7 @@ Plug 'tpope/vim-surround'
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-eunuch'
 Plug 'godlygeek/tabular'
-Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() }}
+Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() }, 'for': ['markdown', 'vim-plug']}
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 
 " Git plugins
@@ -22,7 +22,7 @@ let g:blamer_enabled = 1
 Plug 'rhysd/git-messenger.vim', { 'on': 'GitMessenger' }
 nnoremap <leader>m :GitMessenger<cr>
 
-" Tree plugins
+" Tree
 Plug 'nvim-tree/nvim-web-devicons'
 Plug 'nvim-tree/nvim-tree.lua'
 nnoremap <leader>b :NvimTreeFocus<cr>
@@ -46,6 +46,7 @@ require("nvim-tree").setup {
     sync_root_with_cwd = true,
 }
 
+-- Telescope
 local telescope = require('telescope').setup {
     defaults = {
         file_ignore_patterns = { ".git/" }
@@ -62,6 +63,25 @@ local telescope = require('telescope').setup {
     },
 }
 EOF
+
+" Syntax Highlighting Highlighting
+if has('nvim')
+lua << EOF
+    require'nvim-treesitter.configs'.setup {
+        ensure_installed = "all",
+        sync_install = false,
+        auto_install = true,
+        highlight = {
+            enable = true,
+            additional_vim_regex_highlighting = false,
+        },
+    }
+EOF
+else
+    syntax on
+    " Enable code highlighting within Markdown
+    let g:markdown_fenced_languages = ['html', 'typescript', 'javascript', 'python', 'bash']
+endif
 
 " Default colorscheme
 colorscheme nord
@@ -94,8 +114,6 @@ set textwidth=80
 set splitright
 set splitbelow
 
-" Syntax highlighting and line numbers
-syntax on
 set number
 
 " Indentation
