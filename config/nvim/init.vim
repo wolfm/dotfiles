@@ -9,60 +9,75 @@ Plug 'tpope/vim-surround'
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-eunuch'
 Plug 'godlygeek/tabular'
-Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() }, 'for': ['markdown', 'vim-plug']}
-Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 
 " Git plugins
 Plug 'airblade/vim-gitgutter'
 Plug 'tpope/vim-fugitive'
-Plug 'APZelos/blamer.nvim'
-let g:blamer_date_format = '%b %d %y'
-let g:blamer_relative_time = 1
-let g:blamer_enabled = 1
 Plug 'rhysd/git-messenger.vim', { 'on': 'GitMessenger' }
 nnoremap <leader>m :GitMessenger<cr>
 
 " Tree
-Plug 'nvim-tree/nvim-web-devicons'
-Plug 'nvim-tree/nvim-tree.lua'
-nnoremap <leader>b :NvimTreeFocus<cr>
+if has('nvim')
+    Plug 'nvim-tree/nvim-web-devicons'
+    Plug 'nvim-tree/nvim-tree.lua'
+else
+	Plug 'preservim/nerdtree'
+endif
 
-Plug 'nvim-lua/plenary.nvim'
-Plug 'nvim-telescope/telescope.nvim', {'rev': '0.1.x'}
-nnoremap <C-p> :Telescope find_files<cr>
-nnoremap <leader>f :Telescope live_grep<cr>
+if has('nvim')
+    Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() }, 'for': ['markdown', 'vim-plug']}
+    Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
+
+    Plug 'nvim-lua/plenary.nvim'
+    Plug 'nvim-telescope/telescope.nvim', {'rev': '0.1.x'}
+    nnoremap <C-p> :Telescope find_files<cr>
+    nnoremap <leader>f :Telescope live_grep<cr>
+
+    Plug 'APZelos/blamer.nvim'
+    let g:blamer_date_format = '%b %d %y'
+    let g:blamer_relative_time = 1
+    let g:blamer_enabled = 1
+endif
 
 " Enable to conveniently measure startup time
 " Plug 'dstein64/vim-startuptime'
 
 call plug#end()
 
-" Configure Lua plugins
+" Tree
+if has('nvim')
 lua << EOF
-vim.g.loaded_netrw = 1
-vim.g.loaded_netrwPlugin = 1
-vim.opt.termguicolors = true
-require("nvim-tree").setup {
-    sync_root_with_cwd = true,
-}
-
--- Telescope
-local telescope = require('telescope').setup {
-    defaults = {
-        file_ignore_patterns = { ".git/" }
-    },
-    pickers = {
-        find_files = {
-            hidden = true,
-        },
-        live_grep = {
-            additional_args = function(opts)
-                return {"--hidden"}
-            end
-        },
-    },
-}
+    vim.g.loaded_netrw = 1
+    vim.g.loaded_netrwPlugin = 1
+    require("nvim-tree").setup {
+        sync_root_with_cwd = true,
+    }
 EOF
+    nnoremap <leader>b :NvimTreeToggle<cr>
+else
+    nnoremap <leader>b :NERDTreeToggle<cr>
+endif
+
+" Search
+if has('nvim')
+lua << EOF
+    local telescope = require('telescope').setup {
+        defaults = {
+            file_ignore_patterns = { ".git/" }
+        },
+        pickers = {
+            find_files = {
+                hidden = true,
+            },
+            live_grep = {
+                additional_args = function(opts)
+                    return {"--hidden"}
+                end
+            },
+        },
+    }
+EOF
+endif
 
 " Syntax Highlighting Highlighting
 if has('nvim')
@@ -101,8 +116,6 @@ nnoremap <leader>v :tabnew $MYVIMRC<cr>
 
 " Set working directory to that of opened file
 " set autochdir
-
-" endif
 
 " Rulers
 set colorcolumn=81,121

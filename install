@@ -21,6 +21,9 @@ target_dir="$HOME"
     ln -s "$src_dir/$file" "$target_dir/.$file"
 done
 
+# Link vimrc to nvim rc file
+(cd $target_dir && ln -s $src_dir/config/nvim/init.vim .vimrc)
+
 # for installer in ~/.installers/*-inst; do
 # 	source $installer
 # done
