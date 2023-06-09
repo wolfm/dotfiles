@@ -37,3 +37,5 @@
     path = dotfiles-work/.gitconfig
 [advice]
 	statusHints = false
+[pull]
+	rebase = true
