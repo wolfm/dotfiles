@@ -4,7 +4,14 @@ let mapleader = " "
 " Plugins
 call plug#begin()
 
-Plug 'arcticicestudio/nord-vim'
+" Colorschmes
+if has('nvim')
+    Plug 'shaunsingh/nord.nvim'
+    Plug 'Mofiqul/dracula.nvim'
+else
+    Plug 'arcticicestudio/nord-vim'
+endif
+
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-eunuch'
@@ -51,6 +58,11 @@ lua << EOF
     vim.g.loaded_netrwPlugin = 1
     require("nvim-tree").setup {
         sync_root_with_cwd = true,
+        actions = {
+        open_file = {
+            quit_on_open = true,
+        },
+  },
     }
 EOF
     nnoremap <leader>b :NvimTreeToggle<cr>
@@ -114,9 +126,6 @@ nnoremap <leader>n :noh<cr>
 " Shortcut to open vimrc
 nnoremap <leader>v :tabnew $MYVIMRC<cr>
 
-" Set working directory to that of opened file
-" set autochdir
-
 " Rulers
 set colorcolumn=81,121
 
@@ -148,6 +157,9 @@ set linebreak
 " Use \c or \C in a search to override (insensitive/sensitive, respectively)
 set ignorecase
 set smartcase
+
+" Check spelling on markdown files
+autocmd FileType markdown setlocal spell
 
 " Use true colors if available
 if has ('termguicolors')
