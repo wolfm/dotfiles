@@ -159,6 +159,7 @@ set ignorecase
 set smartcase
 
 " Check spelling on markdown files
+set spelllang=en_us
 autocmd FileType markdown setlocal spell
 
 " Use true colors if available
@@ -166,7 +167,7 @@ if has ('termguicolors')
     set termguicolors
 endif
 
-" Automatically install vim-plug if  ot installed
+" Automatically install vim-plug if not installed
 let data_dir = has('nvim') ? stdpath('data') . '/site' : '~/.vim'
 if empty(glob(data_dir . '/autoload/plug.vim'))
     silent execute '!curl -fLo '.data_dir.'/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
