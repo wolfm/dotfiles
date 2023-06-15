@@ -4,6 +4,17 @@ let mapleader = " "
 " Plugins
 call plug#begin()
 
+Plug 'tpope/vim-surround'
+Plug 'tpope/vim-commentary'
+Plug 'godlygeek/tabular'
+Plug 'tpope/vim-eunuch'
+
+" Git
+Plug 'airblade/vim-gitgutter'
+Plug 'tpope/vim-fugitive'
+Plug 'rhysd/git-messenger.vim', { 'on': 'GitMessenger' }
+nnoremap <leader>m :GitMessenger<cr>
+
 " Colorschmes
 if has('nvim')
     Plug 'shaunsingh/nord.nvim'
@@ -11,17 +22,6 @@ if has('nvim')
 else
     Plug 'arcticicestudio/nord-vim'
 endif
-
-Plug 'tpope/vim-surround'
-Plug 'tpope/vim-commentary'
-Plug 'tpope/vim-eunuch'
-Plug 'godlygeek/tabular'
-
-" Git plugins
-Plug 'airblade/vim-gitgutter'
-Plug 'tpope/vim-fugitive'
-Plug 'rhysd/git-messenger.vim', { 'on': 'GitMessenger' }
-nnoremap <leader>m :GitMessenger<cr>
 
 " Tree
 if has('nvim')
@@ -31,6 +31,7 @@ else
 	Plug 'preservim/nerdtree'
 endif
 
+" Neovim-only plugins
 if has('nvim')
     Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() }, 'for': ['markdown', 'vim-plug']}
     Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
