@@ -75,9 +75,9 @@ if test -n "$KITTY_INSTALLATION_DIR" -a -e "$KITTY_INSTALLATION_DIR/shell-integr
 # Initialize DDS if installed
 sourceif ${NDDSHOME}/resource/scripts/rtisetenv_x64Linux4gcc7.3.0.bash > /dev/null
 
-# # Lazyload ROS2 if installed
-# init_ros2() {
-#   sourceif /opt/ros2_connextdds/src/ros2/rmw_connextdds/install/setup.bash
-#   sourceif /opt/ros/foxy/setup.bash
-# }
-# lazyload init_ros2 ros2 colcon rosdep
+# Lazyload ROS2 if installed
+init_ros2() {
+  sourceif /opt/ros2_connextdds/src/ros2/rmw_connextdds/install/setup.bash
+  sourceif /opt/ros/foxy/setup.bash
+}
+lazyload init_ros2 ros2 colcon rosdep
