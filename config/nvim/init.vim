@@ -10,12 +10,13 @@ call plug#begin()
 
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-commentary'
-Plug 'godlygeek/tabular'
 Plug 'tpope/vim-eunuch'
+Plug 'tpope/vim-repeat'
+Plug 'godlygeek/tabular'
 
 " Git
-Plug 'airblade/vim-gitgutter'
 Plug 'tpope/vim-fugitive'
+Plug 'airblade/vim-gitgutter'
 Plug 'rhysd/git-messenger.vim', { 'on': 'GitMessenger' }
 nnoremap <leader>m :GitMessenger<cr>
 
