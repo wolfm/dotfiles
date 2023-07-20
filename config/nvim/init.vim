@@ -1,4 +1,4 @@
-" " Specify vimrc encoding
+" Specify vimrc encoding
 scriptencoding utf-8
 set encoding=utf-8
 
@@ -42,13 +42,19 @@ if has('nvim')
     let g:blamer_relative_time = 1
     let g:blamer_enabled = 1
 
-    " cmp plugins
-    " Plug 'neovim/nvim-lspconfig'
-    " Plug 'hrsh7th/cmp-nvim-lsp'
+    " LSP
+    Plug 'williamboman/mason.nvim'
+    Plug 'williamboman/mason-lspconfig.nvim'
+    Plug 'neovim/nvim-lspconfig'
+
+    " Completion
     Plug 'hrsh7th/cmp-buffer'
     Plug 'hrsh7th/cmp-path'
     Plug 'hrsh7th/cmp-cmdline'
     Plug 'hrsh7th/nvim-cmp'
+    Plug 'hrsh7th/cmp-nvim-lsp'
+    Plug 'saadparwaiz1/cmp_luasnip'
+    Plug 'hrsh7th/cmp-nvim-lua'
 
     " Snippet Engine
     Plug 'L3MON4D3/LuaSnip'
@@ -66,10 +72,11 @@ call plug#end()
 
 " Neovim-only configuration
 if has('nvim')
-    lua require('completion')
     lua require('tree')
     lua require('search')
     lua require('highlighting')
+    lua require('lsp')
+    lua require('completion')
 
 " Vanilla-vim-only configuration
 else

@@ -100,6 +100,8 @@ cmp.setup {
       vim_item.kind = string.format("%s", kind_icons[vim_item.kind])
       -- vim_item.kind = string.format('%s %s', kind_icons[vim_item.kind], vim_item.kind) -- This concatonates the icons with the name of the item kind
       vim_item.menu = ({
+        nvim_lsp = "[LSP]",
+        nvim_lua = "[Nvim Lua]",
         luasnip = "[Snippet]",
         buffer = "[Buffer]",
         path = "[Path]",
@@ -108,8 +110,10 @@ cmp.setup {
     end,
   },
   sources = {
-    { name = "luasnip" },
-    { name = "buffer" },
+    { name = "nvim_lsp", max_item_count = 10 },
+    { name = "nvim_lua", max_item_count = 5 },
+    { name = "luasnip", max_item_count = 5 },
+    { name = "buffer", max_item_count = 5 },
     { name = "path" },
   },
   confirm_opts = {
@@ -123,11 +127,3 @@ cmp.setup {
     ghost_text = false,
   },
 }
-
--- Use buffer source for `/` and `?` (if you enabled `native_menu`, this won't work anymore).
-  -- cmp.setup.cmdline({ '/', '?' }, {
-  --   mapping = cmp.mapping.preset.cmdline(),
-  --   sources = {
-  --     { name = 'buffer' }
-  --   }
-  -- })
