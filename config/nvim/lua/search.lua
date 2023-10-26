@@ -1,6 +1,7 @@
 local telescope = require('telescope').setup {
     defaults = {
-        file_ignore_patterns = { ".git/" }
+        file_ignore_patterns = { ".git/" },
+        layout_strategy = "vertical",
     },
     pickers = {
         find_files = {
@@ -13,3 +14,10 @@ local telescope = require('telescope').setup {
         },
     },
 }
+
+local telescope_status_ok, telescope = pcall(require, "telescope")
+if not telescope_status_ok then
+  return
+end
+
+-- vim.api.nvim_set_keymap('n', '<C-p>', ':Telescope find_files<cr>', { noremap = true })
