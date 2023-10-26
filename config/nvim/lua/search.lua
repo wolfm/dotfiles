@@ -2,6 +2,12 @@ local telescope = require('telescope').setup {
     defaults = {
         file_ignore_patterns = { ".git/" },
         layout_strategy = "vertical",
+        layout_config = {
+            vertical = {
+                width = 0.97,
+                height = 0.96,
+            }
+        },
     },
     pickers = {
         find_files = {
