@@ -37,6 +37,7 @@ if has('nvim')
     Plug 'nvim-telescope/telescope.nvim', {'rev': '0.1.x'}
     nnoremap <C-p> :Telescope find_files<cr>
     nnoremap <leader>f :Telescope live_grep<cr>
+    nnoremap <leader>r :Telescope resume<cr>
 
     Plug 'APZelos/blamer.nvim'
     let g:blamer_date_format = '%b %d %y'
@@ -98,13 +99,16 @@ nnoremap <leader>l :set list!<cr>
 set listchars=eol:¬,tab:⇥\.,nbsp:_,extends:»,precedes:«
 
 " Shortcut to source nvimrc
-nnoremap <leader>r :source $MYVIMRC<cr>
+nnoremap <leader>c :source $MYVIMRC<cr>
 
 " Shortcut to turn off search highlighting
 nnoremap <leader>n :noh<cr>
 
 " Shortcut to open vimrc
 nnoremap <leader>v :tabnew $MYVIMRC<cr>
+
+" Shortcut to toggle spellcheck
+nnoremap <leader>s :set spell!<cr>
 
 " Rulers
 set colorcolumn=81,121
