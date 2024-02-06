@@ -7,7 +7,6 @@ sourceif() {
 sourceif dotfiles-work/.commonrc
 
 # Aliases
-alias activate="source env/bin/activate"
 alias agent="eval $(ssh-agent)"
 alias git2="git add -A && git commit"
 alias git3="git add -A && git commit && git push"
@@ -15,6 +14,13 @@ alias ll="ls -AlF"
 alias la='ls -a'
 alias l="ls -l"
 alias diff="diff --color"
+alias uninstall-from-manifest="cat install_manifest.txt  | sed 's/^..*$/\"&\"/' | sudo xargs rm"
+
+activate() {
+    source venv/bin/activate &> /dev/null ||
+    source env/bin/activate &> /dev/null ||
+    echo >&2 "neither venv/bin/activate or env/bin/activate found"
+}
 
 # Make directory and cd into it
 mkdire() {
@@ -126,4 +132,4 @@ init_nvm() {
     [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
     [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 }
-lazyload init_nvm nvm npm node
+lazyload init_nvm nvm npm node npx
