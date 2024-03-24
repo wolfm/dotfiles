@@ -11,12 +11,11 @@ local telescope = require('telescope').setup {
     },
     pickers = {
         find_files = {
-            hidden = true,
+            hidden = true, -- Show hidden files
+            follow = true, -- Follow symlinks
         },
         live_grep = {
-            additional_args = function(opts)
-                return {"--hidden"}
-            end
+            additional_args = {"--hidden", "--follow"}
         },
     },
 }

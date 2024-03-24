@@ -49,6 +49,7 @@ if has('nvim')
     Plug 'williamboman/mason.nvim'
     Plug 'williamboman/mason-lspconfig.nvim'
     Plug 'neovim/nvim-lspconfig'
+    Plug 'folke/trouble.nvim'
 
     " Completion
     Plug 'hrsh7th/cmp-buffer'
@@ -113,9 +114,6 @@ nnoremap <leader>s :set spell!<cr>
 
 " Rulers
 set colorcolumn=81,121
-
-" Autoformatting
-set textwidth=80
 
 " Set split directions for sp and vsp commands
 set splitright
