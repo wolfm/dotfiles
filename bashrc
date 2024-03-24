@@ -81,3 +81,6 @@ init_ros2() {
     sourceif /opt/ros/humble/setup.bash
 }
 lazyload init_ros2 ros2 colcon rosdep
+
+# Init zoxide to override cd command, if zoxide is installed
+if command -v zoxide > /dev/null; then eval "$(zoxide init --cmd cd bash)"; fi

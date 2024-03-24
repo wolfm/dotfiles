@@ -47,3 +47,6 @@ lazyload init_ros2 ros2 colcon rosdep
 
 # Measure performance
 # zprof
+
+# Init zoxide to override cd command, if zoxide is installed
+if command -v zoxide > /dev/null; then eval "$(zoxide init --cmd cd zsh)"; fi
