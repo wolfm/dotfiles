@@ -3,6 +3,7 @@
 # Windows clipboard copy and paste
 alias wclip=clip.exe
 alias wpaste="powershell.exe Get-Clipboard"
+alias ollama=ollama.exe
 
 # Windows XMing startup and stop commands
 

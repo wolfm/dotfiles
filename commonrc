@@ -16,6 +16,7 @@ alias l="ls -l"
 alias diff="diff --color"
 alias uninstall-from-manifest="cat install_manifest.txt  | sed 's/^..*$/\"&\"/' | sudo xargs rm"
 alias k="kubectl"
+alias kx="kubectx"
 
 activate() {
     source venv/bin/activate &> /dev/null ||
