@@ -1,4 +1,4 @@
 # mwolf's dotfiles
 
-> [!IMPORTANT]
+> [!NOTE]
 > This repo is managed by [chezmoi](https://www.chezmoi.io/install/).

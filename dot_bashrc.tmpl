@@ -31,13 +31,15 @@ if ! shopt -oq posix; then
   fi
 fi
 
+# Kitty shell integration
+if test -n "$KITTY_INSTALLATION_DIR" -a -e "$KITTY_INSTALLATION_DIR/shell-integration/bash/kitty.bash"; then source "$KITTY_INSTALLATION_DIR/shell-integration/bash/kitty.bash"; fi
+
+{{- if eq .chezmoi.os "linux" }}
+
 # Use color prompt
 force_color_prompt=yes
 if [ -n "$force_color_prompt" ]; then
     if [ -x /usr/bin/tput ] && tput setaf 1 >&/dev/null; then
-	# We have color support; assume it's compliant with Ecma-48
-	# (ISO/IEC-6429). (Lack of such support is extremely rare, and such
-	# a case would tend to support setf rather than setaf.)
 	color_prompt=yes
     else
 	color_prompt=
@@ -52,10 +54,9 @@ fi
 unset color_prompt force_color_prompt
 
 # Powerline config
-# If installed through apt
 if [ -f "/usr/share/powerline/bindings/bash/powerline.sh" ]; then
 	export POWERLINE_BASE_DIR="/usr/share/powerline/"
-else 
+else
 	PYTHON3_USER_SITE_PACKAGES_DIR=$(python3 -m site --user-site)
 	if [ -f "${PYTHON3_USER_SITE_PACKAGES_DIR}/powerline/bindings/bash/powerline.sh" ]; then
 		export POWERLINE_BASE_DIR="${PYTHON3_USER_SITE_PACKAGES_DIR}/powerline/"
@@ -68,10 +69,6 @@ if [ ! -z $POWERLINE_BASE_DIR ]; then
 	source "${POWERLINE_BASE_DIR}bindings/bash/powerline.sh"
 fi
 
-# BEGIN_KITTY_SHELL_INTEGRATION
-if test -n "$KITTY_INSTALLATION_DIR" -a -e "$KITTY_INSTALLATION_DIR/shell-integration/bash/kitty.bash"; then source "$KITTY_INSTALLATION_DIR/shell-integration/bash/kitty.bash"; fi
-# END_KITTY_SHELL_INTEGRATION
-
 # Initialize DDS if installed
 sourceif ${NDDSHOME}/resource/scripts/rtisetenv_x64Linux4gcc7.3.0.bash > /dev/null
 
@@ -81,6 +78,7 @@ init_ros2() {
     sourceif /opt/ros/humble/setup.bash
 }
 lazyload init_ros2 ros2 colcon rosdep
+{{- end }}
 
 # Init zoxide to override cd command, if zoxide is installed
 if command -v zoxide > /dev/null; then eval "$(zoxide init --cmd cd bash)"; fi

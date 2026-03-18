@@ -20,20 +20,18 @@ source $ZSH/oh-my-zsh.sh
 
 source ~/.commonrc
 
-# Reconfigure option-arrow key for prev/next word
-# # Necessary for kitty on Mac
-if [[ "$(uname -s)" == Darwin ]]; then
-	# Change to emacs binding format
-	bindkey -e
+{{- if eq .chezmoi.os "darwin" }}
 
-	# option-arrowkey
-	bindkey '^[[1;9C' forward-word
-	bindkey '^[[1;9D' backward-word
+# Reconfigure option-arrow key for prev/next word (necessary for kitty on Mac)
+# Change to emacs binding format
+bindkey -e
 
-	# control-arrowkey
-	# bindkey '\e\e[C' forward-word
-	# bindkey '\e\e[D' backward-word
-fi
+# option-arrowkey
+bindkey '^[[1;9C' forward-word
+bindkey '^[[1;9D' backward-word
+{{- end }}
+
+{{- if eq .chezmoi.os "linux" }}
 
 # Initialize DDS if installed
 sourceif ${NDDSHOME}/resource/scripts/rtisetenv_x64Linux4gcc7.3.0.zsh > /dev/null
@@ -44,6 +42,7 @@ init_ros2() {
 	sourceif /opt/ros/humble/setup.zsh
 }
 lazyload init_ros2 ros2 colcon rosdep
+{{- end }}
 
 # Measure performance
 # zprof
@@ -51,10 +50,12 @@ lazyload init_ros2 ros2 colcon rosdep
 # Init zoxide to override cd command, if zoxide is installed
 if command -v zoxide > /dev/null; then eval "$(zoxide init --cmd cd zsh)"; fi
 
+{{- if eq .chezmoi.os "darwin" }}
+
 # Flutter
 export PATH="$HOME/clone/flutter/bin:$PATH"
 
 # Ruby
 export PATH="/opt/homebrew/opt/ruby/bin:$PATH"
 export PATH="/opt/homebrew/lib/ruby/gems/3.4.0/bin:$PATH"
-export PATH="/opt/homebrew/opt/ruby/bin:$PATH"
+{{- end }}

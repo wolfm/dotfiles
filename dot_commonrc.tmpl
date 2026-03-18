@@ -44,10 +44,6 @@ lazyload() {
     done
 }
 
-wfh() {
-    echo "nameserver ${ZSCALER_NAMESERVER}" | sudo tee -a /etc/resolv.conf
-}
-
 # Set Bat theme (used for fzf code highlighting"
 export BAT_THEME="Nord"
 
@@ -61,11 +57,6 @@ else
     export EDITOR=vim
 fi
 
-
-wfh() {
-    echo "nameserver 192.168.254.254" | sudo tee -a /etc/resolv.conf
-}
-
 init_pyenv() {
     export PYENV_ROOT="$HOME/.pyenv"
     export PATH="$PYENV_ROOT/bin:$PATH"
@@ -78,15 +69,6 @@ init_pyenv() {
 if [ -x "$HOME/.pyenv/bin/pyenv" ]; then
     lazyload init_pyenv pyenv
 fi
-
-# TODO remove this if it proves to be unecessary
-# If npm installed, set npm global module install location to ~/.npm
-# User doesn't have access to usr/bin/lib/..., the default location
-# if which npm &> /dev/null ; then
-#     npm set prefix ~/.npm
-#     PATH="$HOME/.npm/bin:$PATH"
-#     PATH="./node_modules/.bin:$PATH"
-# fi
 
 # Add user scripts in ~/.local/bin to path
 export PATH="$HOME/.local/bin:$PATH"
@@ -109,13 +91,101 @@ fi
 # Enable gcc colors
 export GCC_COLORS='error=01;31:warning=01;35:note=01;36:caret=01;32:locus=01:quote=01'
 
-# Platform-specific .bashrc commands
-# WSL
-if [[ -n "$WSL_DISTRO_NAME" || -n "$IS_WSL" ]]; then
-    source "$HOME/.platforms/wsl"
-elif [[ "$(uname -s)" == Darwin ]]; then
-    source "$HOME/.platforms/macos"
+{{- if eq .chezmoi.os "darwin" }}
+
+# macOS: re-alias ls commands to use the G flag for color output
+alias ll="ls -GAlF"
+alias la='ls -Ga'
+alias l="ls -Gl"
+alias ls="ls -G"
+
+# macOS: diff --color not supported, use colordiff if available
+if command -v colordiff &> /dev/null
+then
+    alias diff=colordiff
+else
+    alias diff=diff
 fi
+
+# iPython convenient alias
+alias ipython="python3 -m IPython"
+
+{{- end }}
+
+{{- if and (eq .chezmoi.os "linux") (.chezmoi.kernel.osrelease | lower | contains "microsoft") }}
+
+# WSL: Windows clipboard copy and paste
+alias wclip=clip.exe
+alias wpaste="powershell.exe Get-Clipboard"
+alias ollama=ollama.exe
+
+# WSL: XMing startup and stop commands
+export XMING_PATH='C:\ProgramData\Microsoft\Windows\Start Menu\Programs\Xming\Xming.lnk'
+xming_usage() {
+	echo "usage: xming start|stop|status"
+	echo "Starts/stops/reports status of the xming daemon on the host windows machine."
+}
+xming() {
+	if [[ $# -ne 1 ]]; then
+		xming_usage
+	elif [[ $1 == "start" ]]; then
+		if [[ -n $DISPLAY ]]; then
+			echo "xming is already running."
+			return 2
+		else
+			powershell.exe "& '${XMING_PATH}' -multiwindow -clipboard -ac"
+			export DISPLAY=$(cat /etc/resolv.conf | grep nameserver | awk '{print $2; exit;}'):0
+		fi
+	elif [[ $1 == "stop" ]]; then
+		if [[ -n $DISPLAY ]]; then
+			powershell.exe "Get-Process -Name XMing |Stop-Process"
+			export DISPLAY=""
+		else
+			echo "xming is not running."
+			return 3
+		fi
+	elif [[ $1 == "status" ]]; then
+		if [[ -n $DISPLAY ]]; then
+			echo "xming is running. DISPLAY=$DISPLAY"
+		else
+			echo "xming is not running."
+		fi
+	else
+		xming_usage
+		return 1
+	fi
+}
+
+# WSL: Change other-writable directories to orange instead of green-highlighted
+LS_COLORS=$LS_COLORS'ow=33:'
+
+# WSL: beep via powershell
+_beep() {
+    powershell.exe "[console]::beep($1,$2)"
+}
+alias beep="_beep 1800 300"
+
+if ! [ -n $BASH ]; then
+    case "$TERM" in
+    xterm*|rxvt*)
+        PS1="\[\e]0;${debian_chroot:+($debian_chroot)}\u@\h: \w\a\]$PS1"
+        ;;
+    *)
+        ;;
+    esac
+fi
+
+alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo error)" "$(history|tail -n1|sed -e '\''s/^\s*[0-9]\+\s*//;s/[;&|]\s*alert$//'\'')"'
+
+if [ -z "${debian_chroot:-}" ] && [ -r /etc/debian_chroot ]; then
+    debian_chroot=$(cat /etc/debian_chroot)
+fi
+
+case "$TERM" in
+    xterm-color|*-256color) color_prompt=yes;;
+esac
+
+{{- end }}
 
 # Initialize environment for Rust if installed
 if [ -f "$HOME/.cargo/env" ]; then
