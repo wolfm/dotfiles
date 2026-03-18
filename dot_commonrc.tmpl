@@ -3,9 +3,6 @@ sourceif() {
     [ -f "$1" ] && source $@
 }
 
-# Source work commonrc if it exists
-sourceif dotfiles-work/.commonrc
-
 # Aliases
 alias agent="eval $(ssh-agent)"
 alias git2="git add -A && git commit"
