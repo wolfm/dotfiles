@@ -50,3 +50,11 @@ lazyload init_ros2 ros2 colcon rosdep
 
 # Init zoxide to override cd command, if zoxide is installed
 if command -v zoxide > /dev/null; then eval "$(zoxide init --cmd cd zsh)"; fi
+
+# Flutter
+export PATH="$HOME/clone/flutter/bin:$PATH"
+
+# Ruby
+export PATH="/opt/homebrew/opt/ruby/bin:$PATH"
+export PATH="/opt/homebrew/lib/ruby/gems/3.4.0/bin:$PATH"
+export PATH="/opt/homebrew/opt/ruby/bin:$PATH"
