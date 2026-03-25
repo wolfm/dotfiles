@@ -3,4 +3,5 @@ packages:
     brew: bat
   - apt: ripgrep
     brew: ripgrep
+  - brew-cask: ghostty
   - brew-cask: scroll-reverser
