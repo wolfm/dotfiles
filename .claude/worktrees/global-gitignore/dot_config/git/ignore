@@ -1,0 +1,10 @@
+# macOS
+.DS_Store
+
+# Claude Code
+.claude/local
+
+# Vim
+*.swp
+*.swo
+*~

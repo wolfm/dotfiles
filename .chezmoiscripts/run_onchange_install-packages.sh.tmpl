@@ -1,0 +1,55 @@
+#!/bin/bash
+set -euo pipefail
+
+# Detect the package manager. $manager is used below both to select the
+# install command and to look up per-manager package names from packages.yaml.
+{{- $manager := "" }}
+{{- if lookPath "brew" }}{{ $manager = "brew" }}
+{{- else if lookPath "apt"  }}{{ $manager = "apt"  }}
+{{- end }}
+
+{{- if not $manager }}
+echo "No supported package manager found."
+exit 1
+{{- end }}
+
+# This comment includes the rendered package list so that chezmoi's
+# run_onchange_ detects when packages.yaml changes and re-runs the script.
+# packages: {{ range .packages }}{{ if index . $manager }}{{ index . $manager }},{{ end }}{{ end }}
+# brew-cask: {{ range .packages }}{{ if index . "brew-cask" }}{{ index . "brew-cask" }},{{ end }}{{ end }}
+
+# Build the package array. Each entry in .packages is a map of
+# manager -> name. `index` grabs the name for our detected manager;
+# entries that don't define one are skipped by the surrounding `if`.
+packages=(
+{{- range .packages }}
+{{-   if index . $manager }} "{{ index . $manager }}"{{ end }}
+{{- end }}
+)
+
+{{ if eq $manager "brew" -}}
+# Brew casks are listed under a separate "brew-cask" key in packages.yaml.
+cask_packages=(
+{{- range .packages }}
+{{-   if index . "brew-cask" }} "{{ index . "brew-cask" }}"{{ end }}
+{{- end }}
+)
+{{ end }}
+
+{{ if eq $manager "brew" -}}
+install_cmd="brew install"
+{{ else if eq $manager "apt" -}}
+install_cmd="sudo apt install -y"
+{{ end }}
+
+if [ ${#packages[@]} -gt 0 ]; then
+    echo "Installing packages: ${packages[*]}"
+    $install_cmd "${packages[@]}"
+fi
+
+{{ if eq $manager "brew" -}}
+if [ ${#cask_packages[@]} -gt 0 ]; then
+    echo "Installing casks: ${cask_packages[*]}"
+    brew install --cask "${cask_packages[@]}"
+fi
+{{ end }}

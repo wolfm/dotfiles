@@ -1,0 +1,6 @@
+packages:
+  - apt: bat
+    brew: bat
+  - apt: ripgrep
+    brew: ripgrep
+  - brew-cask: scroll-reverser

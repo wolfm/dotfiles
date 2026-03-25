@@ -23,4 +23,4 @@
 - **Tmux**: Mouse support, Nord theme, tpm plugins, directory-aware pane splitting
 - **Kitty**: Nord color scheme
 - **Programming Language Support**: Lazy-loaded pyenv, nvm, and cargo environments
-- **Dependency management**: Homebrew (macOS) and apt (Linux) dependency management
+- **Package management**: Declarative package list in YAML, auto-installed via detected package manager
