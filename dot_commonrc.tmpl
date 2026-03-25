@@ -258,3 +258,6 @@ esac
 
 {{- end }}
 
+# Source machine-local overrides (not managed by chezmoi)
+sourceif "$HOME/.commonrc.local"
+
