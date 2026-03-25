@@ -21,6 +21,5 @@
 - **Git**: Aliases, custom log view, global gitignore
 - **Neovim**: LSP, completion, Telescope, Treesitter, git integration, nvim-tree, Nord theme
 - **Tmux**: Mouse support, Nord theme, tpm plugins, directory-aware pane splitting
-- **Kitty**: Nord color scheme
 - **Programming Language Support**: Lazy-loaded pyenv, nvm, and cargo environments
 - **Package management**: Declarative package list in YAML, auto-installed via detected package manager
