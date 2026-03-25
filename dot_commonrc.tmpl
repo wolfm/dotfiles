@@ -4,28 +4,66 @@ sourceif() {
 }
 
 # Aliases
-alias agent="eval $(ssh-agent)"
 alias git2="git add -A && git commit"
 alias git3="git add -A && git commit && git push"
-alias ll="ls -AlF"
+alias ll="ls -AlFh"
 alias la='ls -a'
 alias l="ls -l"
 alias diff="diff --color"
 alias uninstall-from-manifest="cat install_manifest.txt  | sed 's/^..*$/\"&\"/' | sudo xargs rm"
 alias k="kubectl"
 alias kx="kubectx"
+alias kns="kubens"
+alias kcf="kubecf"
+alias kl="k logs --tail 100"
+alias kgp="k get pods"
+alias tf="terraform"
+alias ts="terraspace"
+alias dcr="docker-compose-rebuild"
+alias dcom="docker compose"
 alias cm="chezmoi"
 
+docker-compose-rebuild() {
+    docker compose down $1 && docker compose build $1 && docker compose up -d $1
+}
+
 activate() {
+    source .venv/bin/activate &> /dev/null ||
     source venv/bin/activate &> /dev/null ||
     source env/bin/activate &> /dev/null ||
-    echo >&2 "neither venv/bin/activate or env/bin/activate found"
+    echo >&2 "None of .venv/bin/activate, venv/bin/activate, or env/bin/activate found"
 }
 
 # Make directory and cd into it
 mkdire() {
     mkdir $1 && cd $_
 }
+
+# Git worktrees navigation
+#   - If users specifies a worktree, navigate to it with pushd
+#   - If user doesn't specify a worktree, and fzf is installed, allow them to select a worktree with fzf
+#   - If user doesn't specify a wortktree and fzf is not installed, simply list worktrees
+wt() {
+    local root worktrees dir abs
+    root=$(git rev-parse --show-toplevel 2>/dev/null) || { echo "Not in a git repo"; return 1; }
+    worktrees=$(git worktree list --porcelain | grep "^worktree " | sed "s|^worktree $root/||;s|^worktree ||")
+    [[ -z "$worktrees" ]] && echo "No worktrees found" && return 1
+
+    if [[ -n "$1" ]]; then
+        dir=$(echo "$worktrees" | grep "$1" | head -1)
+        [[ -z "$dir" ]] && echo "No worktree matching '$1'" && return 1
+    elif command -v fzf &>/dev/null; then
+        dir=$(echo "$worktrees" | fzf --height=40% --reverse)
+        [[ -z "$dir" ]] && return 0
+    else
+        echo "$worktrees"
+        return 0
+    fi
+
+    abs=$([[ "$dir" = /* ]] && echo "$dir" || echo "$root/$dir")
+    pushd "$abs"
+}
+
 
 # lazyload a command when it is used
 # Arg 1: bash function with initialization code to lazy-load
@@ -42,7 +80,11 @@ lazyload() {
     done
 }
 
-# Set Bat theme (used for fzf code highlighting"
+# Configure shell history size
+HISTSIZE=10000
+SAVEHIST=10000
+
+# Set Bat theme (used for fzf code highlighting)
 export BAT_THEME="Nord"
 
 # Use neovim if installed
@@ -71,9 +113,6 @@ fi
 # Add user scripts in ~/.local/bin to path
 export PATH="$HOME/.local/bin:$PATH"
 
-# Start ssh agent
-eval $(ssh-agent &> /dev/null)
-
 # Enable color support of ls and also add handy aliases
 if [ -x /usr/bin/dircolors ]; then
     test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
@@ -88,6 +127,43 @@ fi
 
 # Enable gcc colors
 export GCC_COLORS='error=01;31:warning=01;35:note=01;36:caret=01;32:locus=01:quote=01'
+
+# Initialize environment for Rust if installed
+if [ -f "$HOME/.cargo/env" ]; then
+    . "$HOME/.cargo/env"
+fi
+
+# Make less more friendly for non-text input files, see lesspipe(1)
+[ -x /usr/bin/lesspipe ] && eval "$(SHELL=/bin/sh lesspipe)"
+
+# Lazy load nvm
+init_nvm() {
+    export NVM_DIR="$HOME/.nvm"
+    [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+    [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+}
+lazyload init_nvm nvm npm node npx
+
+# Init zoxide to override cd command if zoxide is installed and this isn't a claude code session
+if [[ -z "${CLAUDECODE}" || "${CLAUDECODE}" != "1" ]] && command -v zoxide > /dev/null; then eval "$(zoxide init --cmd cd $(basename "$SHELL"))"; fi
+
+# Golang
+export GOPATH=$HOME/go
+export PATH=$PATH:$GOPATH/bin
+
+# Bun completions
+[ -s "$HOME/.bun/_bun" ] && source "$HOME/.bun/_bun"
+
+# Bun
+export BUN_INSTALL="$HOME/.bun"
+export PATH="$BUN_INSTALL/bin:$PATH"
+
+# Flutter
+export PATH="$HOME/clone/flutter/bin:$PATH"
+
+# Ruby
+export PATH="/opt/homebrew/opt/ruby/bin:$PATH"
+export PATH="/opt/homebrew/lib/ruby/gems/3.4.0/bin:$PATH"
 
 {{- if eq .chezmoi.os "darwin" }}
 
@@ -104,9 +180,6 @@ then
 else
     alias diff=diff
 fi
-
-# iPython convenient alias
-alias ipython="python3 -m IPython"
 
 {{- end }}
 
@@ -163,7 +236,7 @@ _beep() {
 }
 alias beep="_beep 1800 300"
 
-if ! [ -n $BASH ]; then
+if [ -n "$BASH" ]; then
     case "$TERM" in
     xterm*|rxvt*)
         PS1="\[\e]0;${debian_chroot:+($debian_chroot)}\u@\h: \w\a\]$PS1"
@@ -185,18 +258,3 @@ esac
 
 {{- end }}
 
-# Initialize environment for Rust if installed
-if [ -f "$HOME/.cargo/env" ]; then
-    . "$HOME/.cargo/env"
-fi
-
-# Make less more friendly for non-text input files, see lesspipe(1)
-[ -x /usr/bin/lesspipe ] && eval "$(SHELL=/bin/sh lesspipe)"
-
-# Lazy load nvm
-init_nvm() {
-    export NVM_DIR="$HOME/.nvm"
-    [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
-    [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
-}
-lazyload init_nvm nvm npm node npx

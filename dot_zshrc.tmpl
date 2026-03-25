@@ -1,26 +1,24 @@
 # Initialize performance measurement
 # zmodload zsh/zprof
 
-# Path to your oh-my-zsh installation.
-export ZSH="$HOME/.oh-my-zsh"
+# z-plug
+export ZPLUG_HOME=/opt/homebrew/opt/zplug
+source $ZPLUG_HOME/init.zsh
 
-# Setting for oh-my-zsh
-DISABLE_UPDATE_PROMPT=true
+zplug "themes/robbyrussell", from:"oh-my-zsh", as:theme
 
-ZSH_THEME="robbyrussell"
+# Initialize zplug
+if ! zplug check --verbose; then
+  zplug install
+fi
 
-plugins=(
-    git
-    docker
-)
-
-source $ZSH/oh-my-zsh.sh
-
-# PERSONAL CONFIG
+zplug load
 
 source ~/.commonrc
 
 {{- if eq .chezmoi.os "darwin" }}
+
+### macOS only ###
 
 # Reconfigure option-arrow key for prev/next word
 # Change to emacs binding format
@@ -29,33 +27,11 @@ bindkey -e
 # option-arrowkey
 bindkey '^[[1;9C' forward-word
 bindkey '^[[1;9D' backward-word
-{{- end }}
 
-{{- if eq .chezmoi.os "linux" }}
+## end macOS only ###
 
-# Initialize DDS if installed
-sourceif ${NDDSHOME}/resource/scripts/rtisetenv_x64Linux4gcc7.3.0.zsh > /dev/null
-
-# Lazyload ROS2 if installed
-init_ros2() {
-	sourceif /opt/stargate/ext/ros2_connextdds/install/setup.zsh
-	sourceif /opt/ros/humble/setup.zsh
-}
-lazyload init_ros2 ros2 colcon rosdep
 {{- end }}
 
 # Measure performance
 # zprof
 
-# Init zoxide to override cd command, if zoxide is installed
-if command -v zoxide > /dev/null; then eval "$(zoxide init --cmd cd zsh)"; fi
-
-{{- if eq .chezmoi.os "darwin" }}
-
-# Flutter
-export PATH="$HOME/clone/flutter/bin:$PATH"
-
-# Ruby
-export PATH="/opt/homebrew/opt/ruby/bin:$PATH"
-export PATH="/opt/homebrew/lib/ruby/gems/3.4.0/bin:$PATH"
-{{- end }}

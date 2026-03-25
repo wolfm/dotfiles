@@ -65,16 +65,6 @@ if [ ! -z $POWERLINE_BASE_DIR ]; then
 	POWERLINE_BASH_SELECT=1
 	source "${POWERLINE_BASE_DIR}bindings/bash/powerline.sh"
 fi
-
-# Initialize DDS if installed
-sourceif ${NDDSHOME}/resource/scripts/rtisetenv_x64Linux4gcc7.3.0.bash > /dev/null
-
-# Lazyload ROS2 if installed
-init_ros2() {
-    sourceif /opt/stargate/ext/ros2_connextdds/install/setup.bash
-    sourceif /opt/ros/humble/setup.bash
-}
-lazyload init_ros2 ros2 colcon rosdep
 {{- end }}
 
 # Init zoxide to override cd command, if zoxide is installed
