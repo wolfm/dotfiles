@@ -18,7 +18,7 @@
 ## Features
 
 - **Shell**: Bash & Zsh with shared aliases, functions, and platform-specific configs
-- **Git**: Aliases, custom log view
+- **Git**: Aliases, custom log view, global gitignore
 - **Neovim**: LSP, completion, Telescope, Treesitter, git integration, nvim-tree, Nord theme
 - **Tmux**: Mouse support, Nord theme, tpm plugins, directory-aware pane splitting
 - **Kitty**: Nord color scheme
