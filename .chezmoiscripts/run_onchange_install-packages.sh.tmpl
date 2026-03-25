@@ -2,7 +2,7 @@
 set -euo pipefail
 
 # Detect the package manager. $manager is used below both to select the
-# install command and to look up per-manager package names from packages.yaml.
+# install command and to look up per-manager package names from packages.yml.
 {{- $manager := "" }}
 {{- if lookPath "brew" }}{{ $manager = "brew" }}
 {{- else if lookPath "apt"  }}{{ $manager = "apt"  }}
@@ -14,7 +14,7 @@ exit 1
 {{- end }}
 
 # This comment includes the rendered package list so that chezmoi's
-# run_onchange_ detects when packages.yaml changes and re-runs the script.
+# run_onchange_ detects when packages.yml changes and re-runs the script.
 # packages: {{ range .packages }}{{ if index . $manager }}{{ index . $manager }},{{ end }}{{ end }}
 # brew-cask: {{ range .packages }}{{ if index . "brew-cask" }}{{ index . "brew-cask" }},{{ end }}{{ end }}
 
@@ -28,7 +28,7 @@ packages=(
 )
 
 {{ if eq $manager "brew" -}}
-# Brew casks are listed under a separate "brew-cask" key in packages.yaml.
+# Brew casks are listed under a separate "brew-cask" key in packages.yml.
 cask_packages=(
 {{- range .packages }}
 {{-   if index . "brew-cask" }} "{{ index . "brew-cask" }}"{{ end }}
