@@ -2,7 +2,9 @@
 .DS_Store
 
 # Claude Code
-.claude/local
+.claude/settings.local.json
+.claude/worktrees
+.claude/local # user-managed scratch space, not a Claude Code convention
 
 # Vim
 *.swp
