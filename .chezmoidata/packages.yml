@@ -3,5 +3,7 @@ packages:
     brew: bat
   - apt: ripgrep
     brew: ripgrep
+  - brew: pi-coding-agent
+  - brew: pandoc # for markdown-preview extension of pi-coding-agent
   - brew-cask: ghostty
   - brew-cask: scroll-reverser
