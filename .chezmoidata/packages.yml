@@ -8,6 +8,14 @@ packages:
   - brew: uv # Not in apt registry, but brew has it
   - brew: pi-coding-agent
   - brew: pandoc # for markdown-preview extension of pi-coding-agent
+  - brew: node
+    apt:
+      - nodejs
+      - npm
+  - brew: go
   - brew-cask: ghostty
   - brew-cask: scroll-reverser
   - brew-cask: visual-studio-code
+  - node: typescript
+  - node: typescript-language-server
+  - node: pyright

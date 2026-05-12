@@ -27,7 +27,7 @@
 - **Neovim**: LSP, completion, Telescope, Treesitter, git integration, nvim-tree, Nord theme
 - **Tmux**: Mouse support, Nord theme, tpm plugins, directory-aware pane splitting
 - **Programming Language Support**: Lazy-loaded pyenv, nvm, and cargo environments
-- **Package management**: Declarative package list in YAML, auto-installed via detected package manager
+- **Package management**: Declarative package list in YAML, auto-installed via detected package manager (brew, apt, brew-cask, npm global)
 
 ## Concepts
 

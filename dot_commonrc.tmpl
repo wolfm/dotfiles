@@ -105,11 +105,6 @@ init_pyenv() {
     export PYENV_VIRTUALENV_DISABLE_PROMPT=1 # Needed for pyenv 2.0.7
 }
 
-# Lazyload pyenv if installed
-if [ -x "$HOME/.pyenv/bin/pyenv" ]; then
-    lazyload init_pyenv pyenv
-fi
-
 # Add user scripts in ~/.local/bin to path
 export PATH="$HOME/.local/bin:$PATH"
 
@@ -135,14 +130,6 @@ fi
 
 # Make less more friendly for non-text input files, see lesspipe(1)
 [ -x /usr/bin/lesspipe ] && eval "$(SHELL=/bin/sh lesspipe)"
-
-# Lazy load nvm
-init_nvm() {
-    export NVM_DIR="$HOME/.nvm"
-    [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
-    [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
-}
-lazyload init_nvm nvm npm node npx
 
 # Init zoxide to override cd command if zoxide is installed and this isn't a claude code session
 if [[ -z "${CLAUDECODE}" || "${CLAUDECODE}" != "1" ]] && command -v zoxide > /dev/null; then eval "$(zoxide init --cmd cd $(basename "$SHELL"))"; fi
