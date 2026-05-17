@@ -28,6 +28,7 @@
 - **Tmux**: Mouse support, Nord theme, tpm plugins, directory-aware pane splitting
 - **Programming Language Support**: Lazy-loaded pyenv, nvm, and cargo environments
 - **Package management**: Declarative package list in YAML, auto-installed via detected package manager (brew, apt, brew-cask, npm global)
+- **Obsidian**: Settings, hotkeys, and installed community plugins for the `wolfm` settings-profile (themes and workspace layout intentionally untracked)
 
 ## Concepts
 

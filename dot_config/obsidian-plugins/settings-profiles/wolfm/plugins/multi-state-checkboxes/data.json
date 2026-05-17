@@ -1,0 +1,25 @@
+{
+  "statuses": [
+    {
+      "char": " ",
+      "name": "Not Started"
+    },
+    {
+      "char": "/",
+      "name": "In Progress"
+    },
+    {
+      "char": "x",
+      "name": "Complete"
+    },
+    {
+      "char": "-",
+      "name": "Cancelled"
+    }
+  ],
+  "cycle": [
+    " ",
+    "/",
+    "x"
+  ]
+}
