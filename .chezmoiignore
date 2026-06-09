@@ -2,5 +2,6 @@ README.md
 data
 CLAUDE.md
 .config/nvim/lazy-lock.json
+.config/nvim/.git/**
 .config/obsidian-plugins/settings-profiles/wolfm/themes/**
 .config/obsidian-plugins/settings-profiles/wolfm/workspace.json
