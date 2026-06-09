@@ -39,32 +39,6 @@ mkdire() {
     mkdir $1 && cd $_
 }
 
-# Git worktrees navigation
-#   - If users specifies a worktree, navigate to it with pushd
-#   - If user doesn't specify a worktree, and fzf is installed, allow them to select a worktree with fzf
-#   - If user doesn't specify a wortktree and fzf is not installed, simply list worktrees
-wt() {
-    local root worktrees dir abs
-    root=$(git rev-parse --show-toplevel 2>/dev/null) || { echo "Not in a git repo"; return 1; }
-    worktrees=$(git worktree list --porcelain | grep "^worktree " | sed "s|^worktree $root/||;s|^worktree ||")
-    [[ -z "$worktrees" ]] && echo "No worktrees found" && return 1
-
-    if [[ -n "$1" ]]; then
-        dir=$(echo "$worktrees" | grep "$1" | head -1)
-        [[ -z "$dir" ]] && echo "No worktree matching '$1'" && return 1
-    elif command -v fzf &>/dev/null; then
-        dir=$(echo "$worktrees" | fzf --height=40% --reverse)
-        [[ -z "$dir" ]] && return 0
-    else
-        echo "$worktrees"
-        return 0
-    fi
-
-    abs=$([[ "$dir" = /* ]] && echo "$dir" || echo "$root/$dir")
-    pushd "$abs"
-}
-
-
 # lazyload a command when it is used
 # Arg 1: bash function with initialization code to lazy-load
 # Other args: Commands that should trigger the initialization code

@@ -13,6 +13,7 @@ packages:
       - nodejs
       - npm
   - brew: go
+  - brew: worktrunk
   - brew-cask: ghostty
   - brew-cask: scroll-reverser
   - brew-cask: visual-studio-code
