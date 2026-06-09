@@ -14,6 +14,7 @@ packages:
       - npm
   - brew: go
   - brew: worktrunk
+  - brew: colima
   - brew-cask: ghostty
   - brew-cask: scroll-reverser
   - node: typescript
