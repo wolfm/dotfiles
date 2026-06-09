@@ -4,9 +4,9 @@
 # Claude Code
 .claude/settings.local.json
 .claude/worktrees
-# user-managed scratch space, not a Claude Code convention
-.claude/local
 .playwright-mcp/
+# user-managed scratch space, not a Claude Code convention
+.claude/local/
 
 # Vim
 *.swp
